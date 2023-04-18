@@ -1,0 +1,27 @@
+<header>
+  <div class="container-fluid">
+    <div class="container">
+      <div class="row box" mat-card-header>
+        <div class="col-12 col-lg-5 logo">
+          KUSZTOM NEPTUN
+        </div>
+        <nav class="col-12 col-lg-7">
+          <a mat-button routerLink="/">Main page</a>
+          <a mat-button routerLink="/instructors">Instructors</a>
+          <a mat-button routerLink="/semesters">Semesters</a>
+          <a mat-button routerLink="/students">Students</a>
+          <a mat-button routerLink="/subjects">Subjects</a>
+          <a mat-button>Login</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container-fluid" mat-card-image>
+    <img class="background" src="../assets/images/wallpaper.png">
+  </div>
+</section>
+
+<router-outlet></router-outlet>
