@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { HttpClientModule } from '@angular/common/http';
+
+import { DbService } from './db.service';
 
 // Import Materials
 import { MatButtonModule } from '@angular/material/button';
@@ -25,12 +28,14 @@ import { StudentComponent } from './student/student.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientInMemoryWebApiModule.forRoot(DbService),
+    HttpClientModule,
 
     // Material modules
     MatButtonModule,
     MatCardModule
   ],
-  providers: [],
+  providers: [DbService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
