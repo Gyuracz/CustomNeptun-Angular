@@ -9,7 +9,8 @@ export class StudentTable{
             name: "Student Bob",
             email: "bob.student@uni.com",
             department: Department.MERNOKINFORMATIKUSBSC,
-            subjectIds: [1, 2]
+            subjectIds: [1, 2],
+            subjectNames: []
         },
         {
             id: 2,
@@ -17,7 +18,8 @@ export class StudentTable{
             name: "Student John",
             email: "john.student@uni.com",
             department: Department.PROGRAMTERVEZOINFORMATIKUSMSC,
-            subjectIds: [5]
+            subjectIds: [5],
+            subjectNames: []
         },
         {
             id: 3,
@@ -25,7 +27,8 @@ export class StudentTable{
             name: "Student Jenő",
             email: "jeno.student@uni.com",
             department: Department.MERNOKINFORMATIKUSMSC,
-            subjectIds: [3, 4, 5]
+            subjectIds: [3, 4, 5],
+            subjectNames: []
         }
     ]
 }

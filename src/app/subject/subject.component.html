@@ -1,1 +1,27 @@
-<p>subject works!</p>
+<h1>Subjects</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <mat-card class="box">
+                <mat-card-content>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Code</th>
+                            <th>Credit</th>
+                            <th>Department</th>
+                        </tr>
+                        <tr *ngFor="let it of subjects">
+                            <td>{{ it.name }}</td>
+                            <td>{{ it.code }}</td>
+                            <td>{{ it.credit }}</td>
+                            <td>{{ it.department }}</td>
+                            <button class="deleteButton" (click)="onDeleteSubject(it)" mat-raised-button color="warn">Delete</button>
+                        </tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

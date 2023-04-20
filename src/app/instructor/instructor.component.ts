@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { InstructorService } from './instructor.service';
-import { ActivatedRoute } from '@angular/router';
-import { switchMap } from 'rxjs/operators'
 import { Instructor } from './instructor.model';
 import { SubjectService } from '../subject/subject.service';
 import { Subject } from '../subject/subject.model';

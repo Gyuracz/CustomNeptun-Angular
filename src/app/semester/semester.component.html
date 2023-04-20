@@ -1,1 +1,27 @@
-<p>semester works!</p>
+<h1>Semesters</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <mat-card class="box">
+                <mat-card-content>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Subjects</th>
+                        </tr>
+                        <tr *ngFor="let it of semesters">
+                            <td>{{ it.name }}</td>
+                            <td>{{ it.start }}</td>
+                            <td>{{ it.end }}</td>
+                            <td>{{ it.subjectNames }}</td>
+                            <button class="deleteButton" (click)="onDeleteSemester(it)" mat-raised-button color="warn">Delete</button>
+                        </tr>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

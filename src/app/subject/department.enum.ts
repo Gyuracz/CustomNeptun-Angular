@@ -1,7 +1,7 @@
 export enum Department{
 
-    VIRT,
-    RSZT,
-    MATEMATIKA
+    VIRT = "VIRT",
+    RSZT = "RSZT",
+    MATEMATIKA = "Mathematics"
 
 }

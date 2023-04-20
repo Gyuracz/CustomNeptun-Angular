@@ -5,5 +5,6 @@ export interface Semester{
     start: string;
     end: string;
     subjectIds: Array<number>;
+    subjectNames: Array<string>;
 
 }

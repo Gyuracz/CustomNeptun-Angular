@@ -8,5 +8,6 @@ export interface Student {
     email: string;
     department: Department;
     subjectIds: Array<number>;
+    subjectNames: Array<string>;
 
 }
