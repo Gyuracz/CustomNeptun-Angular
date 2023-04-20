@@ -16,7 +16,7 @@ export class SemesterService {
     return this.requestService.get<Array<Semester>>(URL);
   }
 
-  getSemesterById(id: number): Observable<Semester>{
+  getSemesterById(id: number): Observable<any>{
     return this.requestService.get(`${URL}/${id}`);
   }
 

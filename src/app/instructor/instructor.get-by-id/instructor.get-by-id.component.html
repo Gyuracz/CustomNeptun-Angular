@@ -24,7 +24,6 @@
                             <td>{{ instructor.post }}</td>
                         </tr>
                     </table>
-                    <!-- <button class="deleteButton" (click)="onDeleteSubject(it)" mat-raised-button color="warn">Delete</button> -->
                 </mat-card-content>
                 <mat-card-actions>
                     <a mat-button [routerLink]="['/instructors']">Back</a>
@@ -37,7 +36,14 @@
                 <table>
                     <tr *ngFor="let semester of subjectOfSemesters | keyvalue">
                         <th>{{ semester.key.name }}</th>
-                        <td *ngFor="let subject of semester.value">{{ subject.name }}</td>
+                        <td>
+                            <table class="subTable">
+                                <tr *ngFor="let subject of semester.value">
+                                    <td>{{ subject.name }}</td>
+                                    <td class="buttonCell"><button class="deleteButton" (click)="onDeleteSubjectFromInstructor(subject)" mat-raised-button color="warn">Delete</button></td>
+                                </tr>
+                            </table>
+                        </td>
                     </tr>
                 </table>
             </div>
