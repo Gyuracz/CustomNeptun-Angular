@@ -11,14 +11,12 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Post</th>
-                            <th>Subjects</th>
                         </tr>
                         <tr *ngFor="let it of instructors">
                             <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.neptun }}</a></td>
                             <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.name }}</a></td>
                             <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.email }}</a></td>
                             <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.post }}</a></td>
-                            <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.subjectNames }}</a></td>
                             <button class="deleteButton" (click)="onDeleteInstructor(it)" mat-raised-button color="warn">Delete</button>
                         </tr>
                     </table>

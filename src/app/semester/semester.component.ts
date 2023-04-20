@@ -30,7 +30,6 @@ export class SemesterComponent implements OnInit {
           for(var it of this.subjects){
             if(subjectId === it.id){
               semester.subjectNames.push(it.name);
-              console.log(it.name);
             }
           }
         }
@@ -40,9 +39,7 @@ export class SemesterComponent implements OnInit {
   }
 
   onDeleteSemester(semester: Semester){
-    this.semesterService.deleteSemesterById(semester.id).subscribe(res => {
-      console.log(res);
-    });
+    this.semesterService.deleteSemesterById(semester.id).subscribe();
     this.getSemester();
   }
   

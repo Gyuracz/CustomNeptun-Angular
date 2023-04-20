@@ -24,9 +24,7 @@ export class SubjectComponent implements OnInit {
   }
 
   onDeleteSubject(subject: Subject){
-    this.subjectService.deleteSubjectById(subject.id).subscribe(res => {
-      console.log(res);
-    });
+    this.subjectService.deleteSubjectById(subject.id).subscribe();
     this.getSubjects();
   }
 

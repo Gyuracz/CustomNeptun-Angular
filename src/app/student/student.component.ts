@@ -30,7 +30,6 @@ export class StudentComponent implements OnInit {
           for(var it of this.subjects){
             if(subjectId === it.id){
               student.subjectNames.push(it.name);
-              console.log(it.name);
             }
           }
         }
@@ -40,9 +39,7 @@ export class StudentComponent implements OnInit {
   }
 
   onDeleteStudent(student: Student){
-    this.studentService.deleteStudentById(student.id).subscribe(res => {
-      console.log(res);
-    });
+    this.studentService.deleteStudentById(student.id).subscribe();
     this.getStudents();
   }
 

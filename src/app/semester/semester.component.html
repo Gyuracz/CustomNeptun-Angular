@@ -10,13 +10,11 @@
                             <th>Name</th>
                             <th>Start</th>
                             <th>End</th>
-                            <th>Subjects</th>
                         </tr>
                         <tr *ngFor="let it of semesters">
-                            <td>{{ it.name }}</td>
-                            <td>{{ it.start }}</td>
-                            <td>{{ it.end }}</td>
-                            <td>{{ it.subjectNames }}</td>
+                            <td><a mat-button [routerLink]="['/semesters', it.id]">{{ it.name }}</a></td>
+                            <td><a mat-button [routerLink]="['/semesters', it.id]">{{ it.start }}</a></td>
+                            <td><a mat-button [routerLink]="['/semesters', it.id]">{{ it.end }}</a></td>
                             <button class="deleteButton" (click)="onDeleteSemester(it)" mat-raised-button color="warn">Delete</button>
                         </tr>
                     </table>
