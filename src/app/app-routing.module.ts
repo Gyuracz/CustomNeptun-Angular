@@ -6,6 +6,7 @@ import { SemesterComponent } from './semester/semester.component';
 import { StudentComponent } from './student/student.component';
 import { SubjectComponent } from './subject/subject.component';
 import { InstructorGetByIdComponent } from './instructor/instructor.get-by-id/instructor.get-by-id.component';
+import { StudentGetByIdComponent } from './student/student.get-by-id/student.get-by-id.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "", pathMatch: "full" },
@@ -13,6 +14,7 @@ const routes: Routes = [
   { path: "instructors/:id", component: InstructorGetByIdComponent },
   { path: "semesters", component: SemesterComponent },
   { path: "students", component: StudentComponent },
+  { path: "students/:id", component: StudentGetByIdComponent },
   { path: "subjects", component: SubjectComponent },
   { path: "**", redirectTo: "", pathMatch: "full" }
 ];

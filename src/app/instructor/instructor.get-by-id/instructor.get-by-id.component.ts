@@ -56,8 +56,8 @@ export class InstructorGetByIdComponent implements OnInit {
     let idIdx = this.instructor.subjectIds.indexOf(subject.id, 0);
     if(idIdx !== -1){
       this.instructor.subjectIds.splice(idIdx, 1);
+      this.instructor.subjectNames = [];
     }
-    this.instructor.subjectNames = [];
     this.instructorService.updateInstructor(this.instructor).subscribe();
     this.getSubjectsOfSemester(this.instructor);
   }
