@@ -5,10 +5,12 @@ import { InstructorComponent } from './instructor/instructor.component';
 import { SemesterComponent } from './semester/semester.component';
 import { StudentComponent } from './student/student.component';
 import { SubjectComponent } from './subject/subject.component';
+import { InstructorGetByIdComponent } from './instructor/getById/instructor.get-by-id.component';
 
 const routes: Routes = [
   {path: "", redirectTo: "", pathMatch: "full"},
   {path: "instructors", component: InstructorComponent},
+  {path: "instructors/:id", component: InstructorGetByIdComponent},
   {path: "semesters", component: SemesterComponent},
   {path: "students", component: StudentComponent},
   {path: "subjects", component: SubjectComponent},

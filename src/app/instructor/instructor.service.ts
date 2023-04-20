@@ -16,7 +16,7 @@ export class InstructorService {
     return this.requestService.get<Array<Instructor>>(URL);
   }
 
-  getInstructorById(id: number): Observable<any>{
+  getInstructorById(id: number): Observable<Instructor>{
     return this.requestService.get(`${URL}/${id}`);
   }
 

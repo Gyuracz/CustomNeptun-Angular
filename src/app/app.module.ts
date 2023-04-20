@@ -15,6 +15,7 @@ import { InstructorComponent } from './instructor/instructor.component';
 import { SubjectComponent } from './subject/subject.component';
 import { SemesterComponent } from './semester/semester.component';
 import { StudentComponent } from './student/student.component';
+import { InstructorGetByIdComponent } from './instructor/getById/instructor.get-by-id.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { StudentComponent } from './student/student.component';
     InstructorComponent,
     SubjectComponent,
     SemesterComponent,
-    StudentComponent
+    StudentComponent,
+    InstructorGetByIdComponent
   ],
   imports: [
     BrowserModule,
