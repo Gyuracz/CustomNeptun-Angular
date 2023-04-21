@@ -10,16 +10,20 @@ import { StudentGetByIdComponent } from './student/student.get-by-id/student.get
 import { SemesterGetByIdComponent } from './semester/semester.get-by-id/semester.get-by-id.component';
 import { SubjectCreateComponent } from './subject/subject.create/subject.create.component';
 import { SemesterCreateComponent } from './semester/semester.create/semester.create.component';
+import { StudentCreateComponent } from './student/student.create/student.create.component';
+import { InstructorCreateComponent } from './instructor/instructor.create/instructor.create.component';
 
 const routes: Routes = [
   { path: "", redirectTo: "", pathMatch: "full" },
   { path: "instructors", component: InstructorComponent },
   { path: "instructors/:id", component: InstructorGetByIdComponent },
+  { path: "instructors/create", component: InstructorCreateComponent },
   { path: "semesters", component: SemesterComponent },
   { path: "semesters/:id", component: SemesterGetByIdComponent },
-  { path: "semester/create", component: SemesterCreateComponent },
+  { path: "semesters/create", component: SemesterCreateComponent },
   { path: "students", component: StudentComponent },
   { path: "students/:id", component: StudentGetByIdComponent },
+  { path: "students/create", component: StudentCreateComponent },
   { path: "subjects", component: SubjectComponent },
   { path: "subjects/create", component: SubjectCreateComponent },
   { path: "**", redirectTo: "", pathMatch: "full" }

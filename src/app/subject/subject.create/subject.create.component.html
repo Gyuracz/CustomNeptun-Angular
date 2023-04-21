@@ -28,7 +28,7 @@
                         <select matNativeControl required="true"formControlName="department">
                             <option *ngFor="let it of departments">{{ it }}</option>
                         </select>
-                        <mat-error *ngIf="code?.invalid">{{ getDepartmentErrorMessage() }}</mat-error>
+                        <mat-error *ngIf="department?.invalid">{{ getDepartmentErrorMessage() }}</mat-error>
                     </mat-form-field>
                     <br>
                     <a mat-button [routerLink]="['/subjects']"><span class="material-symbols-outlined">arrow_back_ios</span></a>

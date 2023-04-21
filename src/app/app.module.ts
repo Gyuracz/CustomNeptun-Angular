@@ -25,6 +25,8 @@ import { SemesterGetByIdComponent } from './semester/semester.get-by-id/semester
 import { SubjectCreateComponent } from './subject/subject.create/subject.create.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SemesterCreateComponent } from './semester/semester.create/semester.create.component';
+import { StudentCreateComponent } from './student/student.create/student.create.component';
+import { InstructorCreateComponent } from './instructor/instructor.create/instructor.create.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { SemesterCreateComponent } from './semester/semester.create/semester.cre
     StudentGetByIdComponent,
     SemesterGetByIdComponent,
     SubjectCreateComponent,
-    SemesterCreateComponent
+    SemesterCreateComponent,
+    StudentCreateComponent,
+    InstructorCreateComponent
   ],
   imports: [
     BrowserModule,
