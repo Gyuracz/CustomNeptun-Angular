@@ -22,7 +22,7 @@
                     </table>
                 </mat-card-content>
                 <mat-card-actions>
-                    <a mat-button [routerLink]="['/semesters']">Back</a>
+                    <a mat-button [routerLink]="['/semesters']"><span class="material-symbols-outlined">arrow_back_ios</span></a>
                 </mat-card-actions>
             </mat-card>
         </div>
@@ -32,7 +32,7 @@
                 <table>
                     <tr *ngFor="let it of semester.subjectNames">
                         <td>{{ it }}</td>
-                        <td class="buttonCell"><button class="deleteButton" (click)="onDeleteSubjectFromSemester(it)" mat-raised-button color="warn">Delete</button></td>
+                        <td class="buttonCell"><a (click)="onDeleteSubjectFromSemester(it)"><span class="material-symbols-outlined">delete</span></a></td>
                     </tr>
                 </table>
             </div>

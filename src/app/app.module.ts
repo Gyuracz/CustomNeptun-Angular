@@ -10,7 +10,11 @@ import { DbService } from './db.service';
 
 // Import Materials
 import { MatButtonModule } from '@angular/material/button';
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+
 import { InstructorComponent } from './instructor/instructor.component';
 import { SubjectComponent } from './subject/subject.component';
 import { SemesterComponent } from './semester/semester.component';
@@ -18,6 +22,9 @@ import { StudentComponent } from './student/student.component';
 import { InstructorGetByIdComponent } from './instructor/instructor.get-by-id/instructor.get-by-id.component';
 import { StudentGetByIdComponent } from './student/student.get-by-id/student.get-by-id.component';
 import { SemesterGetByIdComponent } from './semester/semester.get-by-id/semester.get-by-id.component';
+import { SubjectCreateComponent } from './subject/subject.create/subject.create.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SemesterCreateComponent } from './semester/semester.create/semester.create.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +35,9 @@ import { SemesterGetByIdComponent } from './semester/semester.get-by-id/semester
     StudentComponent,
     InstructorGetByIdComponent,
     StudentGetByIdComponent,
-    SemesterGetByIdComponent
+    SemesterGetByIdComponent,
+    SubjectCreateComponent,
+    SemesterCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -36,10 +45,14 @@ import { SemesterGetByIdComponent } from './semester/semester.get-by-id/semester
     BrowserAnimationsModule,
     HttpClientInMemoryWebApiModule.forRoot(DbService),
     HttpClientModule,
+    ReactiveFormsModule,
 
     // Material modules
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule
   ],
   providers: [DbService],
   bootstrap: [AppComponent]

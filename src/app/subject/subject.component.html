@@ -2,6 +2,12 @@
 
 <div class="container">
     <div class="row">
+        <div class="col-11"></div>
+        <div class="col-1">
+            <a mat-button [routerLink]="['/subjects/create']"><span class="material-symbols-outlined">add_circle</span></a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-12">
             <mat-card class="box">
                 <mat-card-content>
@@ -17,7 +23,7 @@
                             <td>{{ it.code }}</td>
                             <td>{{ it.credit }}</td>
                             <td>{{ it.department }}</td>
-                            <button class="deleteButton" (click)="onDeleteSubject(it)" mat-raised-button color="warn">Delete</button>
+                            <td><a (click)="onDeleteSubject(it)"><span class="material-symbols-outlined">delete</span></a></td>
                         </tr>
                     </table>
                 </mat-card-content>

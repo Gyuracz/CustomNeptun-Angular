@@ -1,0 +1,29 @@
+@font-color: rgb(77, 77, 77);
+
+h1{
+    text-align: center;
+    color: @font-color;
+    margin-top: 30pt;
+}
+
+.box{
+    margin-top: 15pt;
+    background-color: rgba(77, 77, 77, 0.3);
+    form{
+        text-align: center;
+        color: @font-color;
+        input, select{
+            border-radius: 5pt;
+            border: @font-color 1pt solid;
+            padding: 3pt 5pt;
+        }
+        .submitButton{
+            border: none;
+            border-radius: 5pt;
+            color: white;
+            background-color: blue;
+            padding: 5pt 15pt;
+            margin: 15pt 0;
+        }
+    }
+}
