@@ -11,24 +11,33 @@
         <div class="col-12">
             <mat-card class="box">
                 <mat-card-content>
-                    <table>
-                        <tr>
-                            <th>Neptun code</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Post</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
-                        </tr>
-                        <tr *ngFor="let it of instructors">
-                            <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.neptun }}</a></td>
-                            <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.name }}</a></td>
-                            <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.email }}</a></td>
-                            <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.post }}</a></td>
-                            <td><a mat-button [routerLink]="['/instructors/update', it.id]"><span class="material-symbols-outlined">edit</span></a></td>
-                            <td><a (click)="onDeleteInstructor(it)"><span class="material-symbols-outlined">delete</span></a></td>
-                        </tr>
-                    </table>
+                    <form [formGroup]="filterForm">
+                        <table>
+                            <span class="material-symbols-outlined">filter_alt</span>
+                            <tr>
+                                <td><input mat-input type="text" placeholder="Neptun" formControlName="neptun"></td>
+                                <td><input mat-input type="text" placeholder="Name" formControlName="name"></td>
+                                <td><input mat-input type="text" placeholder="Email" formControlName="email"></td>
+                                <td><input mat-input type="text" placeholder="Post" formControlName="post"></td>
+                            </tr>
+                            <tr>
+                                <th>Neptun code</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Post</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                            <tr *ngFor="let it of instructors | tableFilter: filterForm.value">
+                                <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.neptun }}</a></td>
+                                <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.name }}</a></td>
+                                <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.email }}</a></td>
+                                <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.post }}</a></td>
+                                <td><a mat-button [routerLink]="['/instructors/update', it.id]"><span class="material-symbols-outlined">edit</span></a></td>
+                                <td><a (click)="onDeleteInstructor(it)"><span class="material-symbols-outlined">delete</span></a></td>
+                            </tr>
+                        </table>
+                    </form>
                 </mat-card-content>
             </mat-card>
         </div>

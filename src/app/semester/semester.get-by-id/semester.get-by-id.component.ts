@@ -4,6 +4,7 @@ import { SemesterService } from '../semester.service';
 import { Subject } from 'src/app/subject/subject.model';
 import { SubjectService } from 'src/app/subject/subject.service';
 import { Semester } from '../semester.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-semester.get-by-id',
@@ -17,7 +18,7 @@ export class SemesterGetByIdComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute, private semesterService: SemesterService, private subjectService: SubjectService){}
 
   ngOnInit(): void {
-      this.getSemesters();
+    this.getSemesters();
   }
 
   getSemesters(){

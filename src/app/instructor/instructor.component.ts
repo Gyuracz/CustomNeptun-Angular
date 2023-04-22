@@ -3,6 +3,7 @@ import { InstructorService } from './instructor.service';
 import { Instructor } from './instructor.model';
 import { SubjectService } from '../subject/subject.service';
 import { Subject } from '../subject/subject.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-instructor',
@@ -13,10 +14,17 @@ export class InstructorComponent implements OnInit {
 
   instructors: Array<Instructor> = [];
   subjects: Array<Subject> = [];
+  filterForm!: FormGroup;
 
-  constructor(private instructorService: InstructorService, private subjectService: SubjectService){}
+  constructor(private instructorService: InstructorService, private subjectService: SubjectService, private formBuilder: FormBuilder){}
 
   ngOnInit(){
+    this.filterForm = this.formBuilder.group({
+      "neptun": "",
+      "name": "",
+      "email": "",
+      "post": ""
+    });
     this.getInstructors();
   }
 

@@ -22,7 +22,7 @@ import { StudentComponent } from './student/student.component';
 import { InstructorGetByIdComponent } from './instructor/instructor.get-by-id/instructor.get-by-id.component';
 import { StudentGetByIdComponent } from './student/student.get-by-id/student.get-by-id.component';
 import { SemesterGetByIdComponent } from './semester/semester.get-by-id/semester.get-by-id.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SubjectCreateComponent } from './subject/subject.create/subject.create.component';
 import { SemesterCreateComponent } from './semester/semester.create/semester.create.component';
 import { StudentCreateComponent } from './student/student.create/student.create.component';
@@ -31,6 +31,7 @@ import { SubjectUpdateComponent } from './subject/subject.update/subject.update.
 import { SemesterUpdateComponent } from './semester/semester.update/semester.update.component';
 import { InstructorUpdateComponent } from './instructor/instructor.update/instructor.update.component';
 import { StudentUpdateComponent } from './student/student.update/student.update.component';
+import { TableFilterPipe } from './table-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,9 @@ import { StudentUpdateComponent } from './student/student.update/student.update.
     SubjectUpdateComponent,
     SemesterUpdateComponent,
     InstructorUpdateComponent,
-    StudentUpdateComponent
+    StudentUpdateComponent,
+    TableFilterPipe,
+    TableFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -58,6 +61,7 @@ import { StudentUpdateComponent } from './student/student.update/student.update.
     HttpClientInMemoryWebApiModule.forRoot(DbService),
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
 
     // Material modules
     MatButtonModule,

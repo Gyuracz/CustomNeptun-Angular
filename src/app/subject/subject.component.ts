@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SubjectService } from './subject.service';
 import { Subject } from './subject.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-subject',
@@ -10,10 +11,17 @@ import { Subject } from './subject.model';
 export class SubjectComponent implements OnInit {
 
   subjects: Array<Subject> = [];
+  filterForm!: FormGroup;
 
-  constructor(private subjectService: SubjectService){}
+  constructor(private subjectService: SubjectService, private formBuilder: FormBuilder){}
 
   ngOnInit(): void {
+      this.filterForm = this.formBuilder.group({
+        "name": "",
+        "code": "",
+        "credit": "",
+        "department": ""
+      });
       this.getSubjects();
   }
 

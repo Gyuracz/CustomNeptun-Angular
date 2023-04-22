@@ -3,6 +3,7 @@ import { StudentService } from './student.service';
 import { SubjectService } from '../subject/subject.service';
 import { Student } from './student.model';
 import { Subject } from '../subject/subject.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-student',
@@ -13,11 +14,18 @@ export class StudentComponent implements OnInit {
 
   students: Array<Student> = [];
   subjects: Array<Subject> = [];
+  filterForm!: FormGroup;
 
-  constructor(private studentService: StudentService, private subjectService: SubjectService){}
+  constructor(private studentService: StudentService, private subjectService: SubjectService, private formBuilder: FormBuilder){}
 
   ngOnInit(): void {
-      this.getStudents();
+    this.filterForm = this.formBuilder.group({
+      "neptun": "",
+      "name": "",
+      "email": "",
+      "department": ""
+    });
+    this.getStudents();
   }
 
   getStudents(){

@@ -3,6 +3,7 @@ import { Semester } from './semester.model';
 import { SemesterService } from './semester.service';
 import { SubjectService } from '../subject/subject.service';
 import { Subject } from '../subject/subject.model';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-semester',
@@ -13,10 +14,16 @@ export class SemesterComponent implements OnInit {
 
   semesters: Array<Semester> = [];
   subjects: Array<Subject> = [];
+  filterForm!: FormGroup;
 
-  constructor(private semesterService: SemesterService, private subjectService: SubjectService){}
+  constructor(private semesterService: SemesterService, private subjectService: SubjectService, private formBuilder: FormBuilder){}
 
   ngOnInit(){
+    this.filterForm = this.formBuilder.group({
+      "name": "",
+      "start": "",
+      "end": ""
+    });
     this.getSemester();
   }
 
