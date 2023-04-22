@@ -18,7 +18,7 @@ export class SubjectCreateComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private subjectService: SubjectService, private router: Router){}
 
   ngOnInit(): void {
-    Object.keys(Department).forEach((key, idx) => {
+    Object.values(Department).forEach((key, idx) => {
       this.departments.push(key);
     });
     this.subjectForm = this.formBuilder.group(

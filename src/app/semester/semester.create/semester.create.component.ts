@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SubjectService } from 'src/app/subject/subject.service';
@@ -11,7 +11,7 @@ import { Subject } from 'src/app/subject/subject.model';
   templateUrl: './semester.create.component.html',
   styleUrls: ['./semester.create.component.less']
 })
-export class SemesterCreateComponent {
+export class SemesterCreateComponent implements OnInit {
 
   semesterForm!: FormGroup;
   subjects: Array<Subject> = [];

@@ -13,18 +13,24 @@ import { StudentCreateComponent } from './student/student.create/student.create.
 import { InstructorCreateComponent } from './instructor/instructor.create/instructor.create.component';
 
 const routes: Routes = [
+  // Default path
   { path: "", redirectTo: "", pathMatch: "full" },
+  // Instructors' paths
   { path: "instructors", component: InstructorComponent },
-  { path: "instructors/:id", component: InstructorGetByIdComponent },
   { path: "instructors/create", component: InstructorCreateComponent },
+  { path: "instructors/:id", component: InstructorGetByIdComponent },
+  // Semesters' paths
   { path: "semesters", component: SemesterComponent },
-  { path: "semesters/:id", component: SemesterGetByIdComponent },
   { path: "semesters/create", component: SemesterCreateComponent },
+  { path: "semesters/:id", component: SemesterGetByIdComponent },
+  // Students' paths
   { path: "students", component: StudentComponent },
-  { path: "students/:id", component: StudentGetByIdComponent },
   { path: "students/create", component: StudentCreateComponent },
+  { path: "students/:id", component: StudentGetByIdComponent },
+  // Subjects' paths
   { path: "subjects", component: SubjectComponent },
   { path: "subjects/create", component: SubjectCreateComponent },
+  // Error path
   { path: "**", redirectTo: "", pathMatch: "full" }
 ];
 

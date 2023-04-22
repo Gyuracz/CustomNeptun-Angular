@@ -22,7 +22,7 @@ export class StudentCreateComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private studentService: StudentService , private subjectService: SubjectService, private router: Router){}
 
   ngOnInit(): void {
-    Object.keys(Department).forEach((key, idx) => {
+    Object.values(Department).forEach((key, idx) => {
       this.departments.push(key);
     });
     this.subjectService.getSubjects().subscribe(data => {
@@ -33,7 +33,7 @@ export class StudentCreateComponent implements OnInit {
         "neptun": ["", { validators: [Validators.required, Validators.maxLength(6)], updateOn: "change" }],
         "name": ["", { validators: [Validators.required, Validators.maxLength(50)], updateOn: "change" }],
         "email": ["", { validators: [Validators.required, Validators.email], updateOn: "change" }],
-        "department": [Department.PROGRAMTERVEZOINFORMATIKUSBSC, { validators: [Validators.required], updateOn: "change" }],
+        "department": [Department.MERNOKINFORMATIKUSBSC, { validators: [Validators.required], updateOn: "change" }],
         "subjectIds": this.formBuilder.array([]),
         "subjectNames": this.formBuilder.array([])
       }
