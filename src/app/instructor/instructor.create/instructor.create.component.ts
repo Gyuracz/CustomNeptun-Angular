@@ -30,7 +30,7 @@ export class InstructorCreateComponent implements OnInit {
     });
     this.instructorForm = this.formBuilder.group(
       {
-        "neptun": ["", { validators: [Validators.required, Validators.maxLength(6)], updateOn: "change" }],
+        "neptun": ["", { validators: [Validators.required, Validators.maxLength(6), Validators.minLength(6), Validators.pattern("^[a-zA-z](?=.*[a-zA-Z0-9]).{5,}$")], updateOn: "change" }],
         "name": ["", { validators: [Validators.required, Validators.maxLength(50)], updateOn: "change" }],
         "email": ["", { validators: [Validators.required, Validators.email], updateOn: "change" }],
         "post": [Post.DOCENS, { validators: [Validators.required], updateOn: "change" }],
@@ -62,7 +62,9 @@ export class InstructorCreateComponent implements OnInit {
   getNeptunErrorMessage(){
     if (this.neptun?.dirty || this.neptun?.touched) {
       if (this.neptun?.hasError('required')) return 'You must enter a value!';
-      if (this.neptun?.hasError('maxlength')) return 'You can enter at most 6 characters!';
+      if (this.neptun?.hasError('maxlength')) return 'You can enter exactly 6 characters!';
+      if (this.neptun?.hasError('minlength')) return 'You can enter exactly 6 characters!';
+      if (this.neptun?.hasError('pattern')) return 'It have not to start with a number!';
     }
     return '';
   }
