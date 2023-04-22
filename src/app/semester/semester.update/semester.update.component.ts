@@ -1,23 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { SubjectService } from 'src/app/subject/subject.service';
-import { SemesterService } from '../semester.service';
-import { Semester } from '../semester.model';
 import { Subject } from 'src/app/subject/subject.model';
+import { SemesterService } from '../semester.service';
+import { SubjectService } from 'src/app/subject/subject.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Semester } from '../semester.model';
 
 @Component({
-  selector: 'app-semester.create',
-  templateUrl: './semester.create.component.html',
-  styleUrls: ['./semester.create.component.less']
+  selector: 'app-semester.update',
+  templateUrl: './semester.update.component.html',
+  styleUrls: ['./semester.update.component.less']
 })
-export class SemesterCreateComponent implements OnInit {
+export class SemesterUpdateComponent implements OnInit {
 
   semesterForm!: FormGroup;
   subjects: Array<Subject> = [];
   formArray: FormArray = this.formBuilder.array([]);
+  semester: any = {};
+  selectedSubjects: Map<Subject, boolean> = new Map<Subject, boolean>;
 
-  constructor(private formBuilder: FormBuilder, private semesterService: SemesterService , private subjectService: SubjectService, private router: Router){}
+  constructor(private formBuilder: FormBuilder, private semesterService: SemesterService , private subjectService: SubjectService, private router: Router, private activatedRoute: ActivatedRoute){}
 
   ngOnInit(): void {
     this.subjectService.getSubjects().subscribe(data => {
@@ -25,6 +27,7 @@ export class SemesterCreateComponent implements OnInit {
     });
     this.semesterForm = this.formBuilder.group(
       {
+        "id": "",
         "name": ["", { validators: [Validators.required, Validators.maxLength(50)], updateOn: "change" }],
         "start": ["", { validators: [Validators.required, Validators.maxLength(10)], updateOn: "change" }],
         "end": ["", { validators: [Validators.required, Validators.maxLength(10)], updateOn: "change" }],
@@ -32,10 +35,32 @@ export class SemesterCreateComponent implements OnInit {
         "subjectNames": this.formBuilder.array([])
       }
     );
+    let id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.semesterService.getSemesterById(id).subscribe(data => {
+      this.semester = data;
+      this.subjects.forEach(subject => {
+        if(this.semester.subjectIds.includes(subject.id)){
+          this.selectedSubjects.set(subject, true);
+        }else{
+          this.selectedSubjects.set(subject, false);
+        }
+      });
+      for(let it in this.semester.subjectIds){
+        this.formArray.push(new FormControl(it));
+      }
+      this.semesterForm.patchValue({
+        "id": this.semester.id,
+        "name": this.semester.name,
+        "start": this.semester.start,
+        "end": this.semester.end,
+        "subjectIds": this.semester.subjectIds,
+        "subjectNames": this.semester.subjectNames
+      });
+    });
   }
 
   onSubmit(semester: Semester){
-    this.semesterService.createSemester(semester).subscribe(res => {
+    this.semesterService.updateSemester(semester).subscribe(res => {
       this.semesterForm.reset();
       this.router.navigate(["/semesters"]);
     });

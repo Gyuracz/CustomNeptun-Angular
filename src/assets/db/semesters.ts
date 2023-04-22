@@ -5,7 +5,7 @@ export class SemesterTable{
         {
             id: 1,
             name: "2022/23/1",
-            start: "2022-09-1",
+            start: "2022-09-01",
             end: "2023-01-31",
             subjectIds: [1, 3],
             subjectNames: []

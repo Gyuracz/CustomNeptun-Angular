@@ -12,6 +12,9 @@ import { SemesterCreateComponent } from './semester/semester.create/semester.cre
 import { StudentCreateComponent } from './student/student.create/student.create.component';
 import { InstructorCreateComponent } from './instructor/instructor.create/instructor.create.component';
 import { SubjectUpdateComponent } from './subject/subject.update/subject.update.component';
+import { InstructorUpdateComponent } from './instructor/instructor.update/instructor.update.component';
+import { SemesterUpdateComponent } from './semester/semester.update/semester.update.component';
+import { StudentUpdateComponent } from './student/student.update/student.update.component';
 
 const routes: Routes = [
   // Default path
@@ -19,14 +22,17 @@ const routes: Routes = [
   // Instructors' paths
   { path: "instructors", component: InstructorComponent },
   { path: "instructors/create", component: InstructorCreateComponent },
+  { path: "instructors/update/:id", component: InstructorUpdateComponent },
   { path: "instructors/:id", component: InstructorGetByIdComponent },
   // Semesters' paths
   { path: "semesters", component: SemesterComponent },
   { path: "semesters/create", component: SemesterCreateComponent },
+  { path: "semesters/update/:id", component: SemesterUpdateComponent },
   { path: "semesters/:id", component: SemesterGetByIdComponent },
   // Students' paths
   { path: "students", component: StudentComponent },
   { path: "students/create", component: StudentCreateComponent },
+  { path: "students/update/:id", component: StudentUpdateComponent },
   { path: "students/:id", component: StudentGetByIdComponent },
   // Subjects' paths
   { path: "subjects", component: SubjectComponent },

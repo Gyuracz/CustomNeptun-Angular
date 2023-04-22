@@ -1,0 +1,38 @@
+<h1>Update semester {{ semester.name }}</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <form [formGroup]="semesterForm" (ngSubmit)="onSubmit(semesterForm.value)">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" placeholder="Name" formControlName="name" required="true">
+                        <mat-error *ngIf="name!.invalid">{{getNameErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Start</mat-label>
+                        <input matInput type="date" placeholder="Start" formControlName="start" required="true">
+                        <mat-error *ngIf="start!.invalid">{{getStartErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="outline">
+                        <mat-label>End</mat-label>
+                        <input matInput type="date" placeholder="End" formControlName="end" required="true">
+                        <mat-error *ngIf="end!.invalid">{{getEndErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <div formArrayName="subjectIds">
+                        <div *ngFor="let it of selectedSubjects | keyvalue">
+                            <mat-checkbox [value]="it.key.name" [checked]="it.value" (change)="onCheckChange($event)">{{ it.key.name }}</mat-checkbox>
+                        </div>
+                    </div>
+                    <br>
+                    <a mat-button [routerLink]="['/semesters']"><span class="material-symbols-outlined">arrow_back_ios</span></a>
+                    <button class="submitButton" mat-raised-button color="primary" type [disabled]="semesterForm.invalid">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

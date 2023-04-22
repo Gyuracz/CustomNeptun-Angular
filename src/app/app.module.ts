@@ -28,6 +28,9 @@ import { SemesterCreateComponent } from './semester/semester.create/semester.cre
 import { StudentCreateComponent } from './student/student.create/student.create.component';
 import { InstructorCreateComponent } from './instructor/instructor.create/instructor.create.component';
 import { SubjectUpdateComponent } from './subject/subject.update/subject.update.component';
+import { SemesterUpdateComponent } from './semester/semester.update/semester.update.component';
+import { InstructorUpdateComponent } from './instructor/instructor.update/instructor.update.component';
+import { StudentUpdateComponent } from './student/student.update/student.update.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +46,10 @@ import { SubjectUpdateComponent } from './subject/subject.update/subject.update.
     SemesterCreateComponent,
     StudentCreateComponent,
     InstructorCreateComponent,
-    SubjectUpdateComponent
+    SubjectUpdateComponent,
+    SemesterUpdateComponent,
+    InstructorUpdateComponent,
+    StudentUpdateComponent
   ],
   imports: [
     BrowserModule,

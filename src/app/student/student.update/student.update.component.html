@@ -1,0 +1,45 @@
+<h1>Update student {{ student.name }}</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="box">
+                <form [formGroup]="studentForm" (ngSubmit)="onSubmit(studentForm.value)">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Neptun</mat-label>
+                        <input matInput type="text" placeholder="Neptun" formControlName="neptun" required="true">
+                        <mat-error *ngIf="neptun!.invalid">{{getNeptunErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Name</mat-label>
+                        <input matInput type="text" placeholder="Name" formControlName="name" required="true">
+                        <mat-error *ngIf="name!.invalid">{{getNameErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Email</mat-label>
+                        <input matInput type="email" placeholder="Email" formControlName="email" required="true">
+                        <mat-error *ngIf="email!.invalid">{{getEmailErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Department</mat-label>
+                        <select matNativeControl required="true"formControlName="department">
+                            <option *ngFor="let it of departments">{{ it }}</option>
+                        </select>
+                    </mat-form-field>
+                    <br>
+                    <div formArrayName="subjectIds">
+                        <div *ngFor="let it of selectedSubjects | keyvalue">
+                            <mat-checkbox [value]="it.key.name" [checked]="it.value" (change)="onCheckChange($event)">{{ it.key.name }}</mat-checkbox>
+                        </div>
+                    </div>
+                    <br>
+                    <a mat-button [routerLink]="['/students']"><span class="material-symbols-outlined">arrow_back_ios</span></a>
+                    <button class="submitButton" mat-raised-button color="primary" type [disabled]="studentForm.invalid">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
