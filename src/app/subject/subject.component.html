@@ -17,12 +17,15 @@
                             <th>Code</th>
                             <th>Credit</th>
                             <th>Department</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                         <tr *ngFor="let it of subjects">
                             <td>{{ it.name }}</td>
                             <td>{{ it.code }}</td>
                             <td>{{ it.credit }}</td>
                             <td>{{ it.department }}</td>
+                            <td><a mat-button [routerLink]="['/subjects/update', it.id]"><span class="material-symbols-outlined">edit</span></a></td>
                             <td><a (click)="onDeleteSubject(it)"><span class="material-symbols-outlined">delete</span></a></td>
                         </tr>
                     </table>

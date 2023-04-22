@@ -13,7 +13,7 @@ export class SubjectService{
   constructor(private requestService: RequestService) { }
 
   getSubjects(): Observable<any>{
-    return this.requestService.get<any>(URL);
+    return this.requestService.get<Array<Subject>>(URL);
   }
 
   getSubjectById(id: number): Observable<any>{

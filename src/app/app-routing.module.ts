@@ -11,6 +11,7 @@ import { SubjectCreateComponent } from './subject/subject.create/subject.create.
 import { SemesterCreateComponent } from './semester/semester.create/semester.create.component';
 import { StudentCreateComponent } from './student/student.create/student.create.component';
 import { InstructorCreateComponent } from './instructor/instructor.create/instructor.create.component';
+import { SubjectUpdateComponent } from './subject/subject.update/subject.update.component';
 
 const routes: Routes = [
   // Default path
@@ -30,6 +31,7 @@ const routes: Routes = [
   // Subjects' paths
   { path: "subjects", component: SubjectComponent },
   { path: "subjects/create", component: SubjectCreateComponent },
+  { path: "subjects/update/:id", component: SubjectUpdateComponent },
   // Error path
   { path: "**", redirectTo: "", pathMatch: "full" }
 ];

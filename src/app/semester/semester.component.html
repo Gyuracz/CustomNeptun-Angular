@@ -16,11 +16,14 @@
                             <th>Name</th>
                             <th>Start</th>
                             <th>End</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                         <tr *ngFor="let it of semesters">
                             <td><a mat-button [routerLink]="['/semesters', it.id]">{{ it.name }}</a></td>
                             <td><a mat-button [routerLink]="['/semesters', it.id]">{{ it.start }}</a></td>
                             <td><a mat-button [routerLink]="['/semesters', it.id]">{{ it.end }}</a></td>
+                            <td><a mat-button [routerLink]="['/semesters/update', it.id]"><span class="material-symbols-outlined">edit</span></a></td>
                             <td><a (click)="onDeleteSemester(it)"><span class="material-symbols-outlined">delete</span></a></td>
                         </tr>
                     </table>

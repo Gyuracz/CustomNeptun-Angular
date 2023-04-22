@@ -27,6 +27,7 @@ import { SubjectCreateComponent } from './subject/subject.create/subject.create.
 import { SemesterCreateComponent } from './semester/semester.create/semester.create.component';
 import { StudentCreateComponent } from './student/student.create/student.create.component';
 import { InstructorCreateComponent } from './instructor/instructor.create/instructor.create.component';
+import { SubjectUpdateComponent } from './subject/subject.update/subject.update.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { InstructorCreateComponent } from './instructor/instructor.create/instru
     SubjectCreateComponent,
     SemesterCreateComponent,
     StudentCreateComponent,
-    InstructorCreateComponent
+    InstructorCreateComponent,
+    SubjectUpdateComponent
   ],
   imports: [
     BrowserModule,

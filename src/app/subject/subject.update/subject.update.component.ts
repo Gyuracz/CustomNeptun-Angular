@@ -1,21 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubjectService } from '../subject.service';
-import { Router } from '@angular/router';
-import { Subject } from '../subject.model';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Department } from '../department.enum';
+import { Subject } from '../subject.model';
 
 @Component({
-  selector: 'app-subject.create',
-  templateUrl: './subject.create.component.html',
-  styleUrls: ['./subject.create.component.less']
+  selector: 'app-subject.update',
+  templateUrl: './subject.update.component.html',
+  styleUrls: ['./subject.update.component.less']
 })
-export class SubjectCreateComponent implements OnInit {
+export class SubjectUpdateComponent implements OnInit {
 
   subjectForm!: FormGroup;
   departments: Array<string> = [];
+  subject: any = {};
 
-  constructor(private formBuilder: FormBuilder, private subjectService: SubjectService, private router: Router){}
+  constructor(private formBuilder: FormBuilder, private subjectService: SubjectService, private router: Router, private activatedRoute: ActivatedRoute){}
 
   ngOnInit(): void {
     Object.values(Department).forEach((key, idx) => {
@@ -23,16 +24,28 @@ export class SubjectCreateComponent implements OnInit {
     });
     this.subjectForm = this.formBuilder.group(
       {
+        "id": "",
         "name": ["", { validators: [Validators.required, Validators.maxLength(80)], updateOn: "change" }],
         "code": ["", { validators: [Validators.required, Validators.maxLength(30)], updateOn: "change" }],
         "credit": ["", { validators: [Validators.required, Validators.maxLength(2)], updateOn: "change" }],
-        "department": [Department.VIRT, { validators: [Validators.required] }]
+        "department": ["", { validators: [Validators.required] }]
       }
     );
+    let id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
+    this.subjectService.getSubjectById(id).subscribe(data => {
+      this.subject = data;
+      this.subjectForm.patchValue({
+        "id": this.subject.id,
+        "name": this.subject.name,
+        "code": this.subject.code,
+        "credit": this.subject.credit,
+        "department": this.subject.department
+      });
+    });
   }
 
   onSubmit(subject: Subject){
-    this.subjectService.createSubject(subject).subscribe(res => {
+    this.subjectService.updateSubject(subject).subscribe(res => {
       this.subjectForm.reset();
       this.router.navigate(["/subjects"]);
     });
