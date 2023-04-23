@@ -21,14 +21,30 @@
                                 <td><input mat-input type="text" placeholder="Department" formControlName="department"></td>
                             </tr>
                             <tr>
-                                <th>Name</th>
-                                <th>Code</th>
-                                <th>Credit</th>
-                                <th>Department</th>
-                                <th>Edit</th>
+                                <th>
+                                    Name
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'asc')" (click)="changeSorting('name', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'desc')" (click)="changeSorting('name', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
+                                <th>
+                                    Code
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'code' && sort.direction == 'asc')" (click)="changeSorting('code', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'code' && sort.direction == 'desc')" (click)="changeSorting('code', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
+                                <th>
+                                    Credit
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'credit' && sort.direction == 'asc')" (click)="changeSorting('credit', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'credit' && sort.direction == 'desc')" (click)="changeSorting('credit', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
+                                <th>
+                                    Department
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'department' && sort.direction == 'asc')" (click)="changeSorting('department', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'department' && sort.direction == 'desc')" (click)="changeSorting('department', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
+                                <th> Edit</th>
                                 <th>Delete</th>
                             </tr>
-                            <tr *ngFor="let it of subjects | tableFilter: filterForm.value">
+                            <tr *ngFor="let it of subjects | tableFilter: filterForm.value | tablerOrder: sort">
                                 <td>{{ it.name }}</td>
                                 <td>{{ it.code }}</td>
                                 <td>{{ it.credit }}</td>
