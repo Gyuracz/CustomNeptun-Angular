@@ -4,6 +4,7 @@ import { SemesterService } from './semester.service';
 import { SubjectService } from '../subject/subject.service';
 import { Subject } from '../subject/subject.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TablerOrderPipe } from '../tabler-order.pipe';
 
 @Component({
   selector: 'app-semester',
@@ -15,6 +16,11 @@ export class SemesterComponent implements OnInit {
   semesters: Array<Semester> = [];
   subjects: Array<Subject> = [];
   filterForm!: FormGroup;
+  filterIcon = false;
+  sort = {
+    column: "",
+    direction: ""
+  };
 
   constructor(private semesterService: SemesterService, private subjectService: SubjectService, private formBuilder: FormBuilder){}
 
@@ -48,6 +54,18 @@ export class SemesterComponent implements OnInit {
   onDeleteSemester(semester: Semester){
     this.semesterService.deleteSemesterById(semester.id).subscribe();
     this.getSemester();
+  }
+
+  changeSorting(column: string, direction: string){
+    if(this.sort.column == column && this.sort.direction == direction){
+      this.sort.column = "";
+      this.sort.direction = "";
+      this.getSemester();
+    }else{
+      this.sort.column = column;
+      this.sort.direction = direction;
+      this.semesters = new TablerOrderPipe().transform(this.semesters, this.sort);
+    }
   }
   
 }

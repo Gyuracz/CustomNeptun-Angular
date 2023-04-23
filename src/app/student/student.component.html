@@ -13,18 +13,34 @@
                 <mat-card-content>
                     <form [formGroup]="filterForm">
                         <table>
-                            <span class="material-symbols-outlined">filter_alt</span>
+                            <span class="material-symbols-outlined" (click)="filterIcon = !filterIcon">filter_alt</span>
                             <tr>
-                                <td><input mat-input type="text" placeholder="Neptun" formControlName="neptun"></td>
-                                <td><input mat-input type="text" placeholder="Name" formControlName="name"></td>
-                                <td><input mat-input type="text" placeholder="Email" formControlName="email"></td>
-                                <td><input mat-input type="text" placeholder="Department" formControlName="department"></td>
+                                <td><input mat-input type="text" placeholder="Neptun" formControlName="neptun" *ngIf="filterIcon == true"></td>
+                                <td><input mat-input type="text" placeholder="Name" formControlName="name" *ngIf="filterIcon == true"></td>
+                                <td><input mat-input type="text" placeholder="Email" formControlName="email" *ngIf="filterIcon == true"></td>
+                                <td><input mat-input type="text" placeholder="Department" formControlName="department" *ngIf="filterIcon == true"></td>
                             </tr>
                             <tr>
-                                <th>Neptun code</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Department</th>
+                                <th>
+                                    Neptun code
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'neptun' && sort.direction == 'asc')" (click)="changeSorting('neptun', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'neptun' && sort.direction == 'desc')" (click)="changeSorting('neptun', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
+                                <th>
+                                    Name
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'asc')" (click)="changeSorting('name', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'desc')" (click)="changeSorting('name', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
+                                <th>
+                                    Email
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'email' && sort.direction == 'asc')" (click)="changeSorting('email', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'email' && sort.direction == 'desc')" (click)="changeSorting('email', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
+                                <th>
+                                    Department
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'department' && sort.direction == 'asc')" (click)="changeSorting('department', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'department' && sort.direction == 'desc')" (click)="changeSorting('department', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>

@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { SubjectService } from './subject.service';
 import { Subject } from './subject.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TablerOrderPipe } from '../tabler-order.pipe';
 
 @Component({
   selector: 'app-subject',
@@ -12,6 +13,7 @@ export class SubjectComponent implements OnInit {
 
   subjects: Array<Subject> = [];
   filterForm!: FormGroup;
+  filterIcon = false;
   sort = {
     column: "",
     direction: ""
@@ -48,30 +50,8 @@ export class SubjectComponent implements OnInit {
     }else{
       this.sort.column = column;
       this.sort.direction = direction;
-      this.subjects = this.orderTable(this.subjects, this.sort);
+      this.subjects = new TablerOrderPipe().transform(this.subjects, this.sort);
     }
-  }
-
-  orderTable(value: any, sort: any){
-    return value.sort((v1: { [x: string]: number; }, v2: { [x: string]: number; }) => {
-      if(v1[sort.column] > v2[sort.column]){
-        if(sort.direction == "asc"){
-          return 1;
-        }
-        if(sort.direction == "desc"){
-          return -1;
-        }
-      }
-      if(v1[sort.column] < v2[sort.column]){
-        if(sort.direction == "asc"){
-          return -1;
-        }
-        if(sort.direction == "desc"){
-          return 1;
-        }
-      }
-      return 0;
-    });
   }
 
 }

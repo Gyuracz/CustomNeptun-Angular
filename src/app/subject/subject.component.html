@@ -13,12 +13,12 @@
                 <mat-card-content>
                     <form [formGroup]="filterForm">
                         <table>
-                            <span class="material-symbols-outlined">filter_alt</span>
+                            <span class="material-symbols-outlined" (click)="filterIcon = !filterIcon">filter_alt</span>
                             <tr>
-                                <td><input mat-input type="text" placeholder="Name" formControlName="name"></td>
-                                <td><input mat-input type="text" placeholder="Code" formControlName="code"></td>
-                                <td><input mat-input type="number" placeholder="Credit" formControlName="credit"></td>
-                                <td><input mat-input type="text" placeholder="Department" formControlName="department"></td>
+                                <td><input mat-input type="text" placeholder="Name" formControlName="name" *ngIf="filterIcon == true"></td>
+                                <td><input mat-input type="text" placeholder="Code" formControlName="code" *ngIf="filterIcon == true"></td>
+                                <td><input mat-input type="number" placeholder="Credit" formControlName="credit" *ngIf="filterIcon == true"></td>
+                                <td><input mat-input type="text" placeholder="Department" formControlName="department" *ngIf="filterIcon == true"></td>
                             </tr>
                             <tr>
                                 <th>

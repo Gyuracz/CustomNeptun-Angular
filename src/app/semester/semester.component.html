@@ -13,16 +13,28 @@
                 <mat-card-content>
                     <form [formGroup]="filterForm">
                         <table>
-                            <span class="material-symbols-outlined">filter_alt</span>
+                            <span class="material-symbols-outlined" (click)="filterIcon = !filterIcon">filter_alt</span>
                             <tr>
-                                <td><input mat-input type="text" placeholder="Name" formControlName="name"></td>
-                                <td><input mat-input type="date" placeholder="Start" formControlName="start"></td>
-                                <td><input mat-input type="date" placeholder="End" formControlName="end"></td>
+                                <td><input mat-input type="text" placeholder="Name" formControlName="name" *ngIf="filterIcon == true"></td>
+                                <td><input mat-input type="date" placeholder="Start" formControlName="start" *ngIf="filterIcon == true"></td>
+                                <td><input mat-input type="date" placeholder="End" formControlName="end" *ngIf="filterIcon == true"></td>
                             </tr>
                             <tr>
-                                <th>Name</th>
-                                <th>Start</th>
-                                <th>End</th>
+                                <th>
+                                    Name
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'asc')" (click)="changeSorting('name', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'desc')" (click)="changeSorting('name', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
+                                <th>
+                                    Start
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'start' && sort.direction == 'asc')" (click)="changeSorting('start', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'start' && sort.direction == 'desc')" (click)="changeSorting('start', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
+                                <th>
+                                    End
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'end' && sort.direction == 'asc')" (click)="changeSorting('end', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'end' && sort.direction == 'desc')" (click)="changeSorting('end', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                </th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>

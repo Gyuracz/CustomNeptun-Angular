@@ -4,6 +4,7 @@ import { Instructor } from './instructor.model';
 import { SubjectService } from '../subject/subject.service';
 import { Subject } from '../subject/subject.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TablerOrderPipe } from '../tabler-order.pipe';
 
 @Component({
   selector: 'app-instructor',
@@ -15,6 +16,11 @@ export class InstructorComponent implements OnInit {
   instructors: Array<Instructor> = [];
   subjects: Array<Subject> = [];
   filterForm!: FormGroup;
+  filterIcon = false;
+  sort = {
+    column: "",
+    direction: ""
+  };
 
   constructor(private instructorService: InstructorService, private subjectService: SubjectService, private formBuilder: FormBuilder){}
 
@@ -49,6 +55,18 @@ export class InstructorComponent implements OnInit {
   onDeleteInstructor(instructor: Instructor){
     this.instructorService.deleteInstructorById(instructor.id).subscribe();
     this.getInstructors();
+  }
+
+  changeSorting(column: string, direction: string){
+    if(this.sort.column == column && this.sort.direction == direction){
+      this.sort.column = "";
+      this.sort.direction = "";
+      this.getInstructors();
+    }else{
+      this.sort.column = column;
+      this.sort.direction = direction;
+      this.instructors = new TablerOrderPipe().transform(this.instructors, this.sort);
+    }
   }
 
 }
