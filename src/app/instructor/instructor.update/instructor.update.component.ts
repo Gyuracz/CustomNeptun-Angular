@@ -6,6 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectService } from 'src/app/subject/subject.service';
 import { Instructor } from '../instructor.model';
 import { InstructorService } from '../instructor.service';
+import { Roles } from 'src/app/login/roles.enum';
+import { Department } from 'src/app/subject/department.enum';
+import { UserService } from 'src/app/login/user.service';
+import { User } from 'src/app/login/user.model';
 
 @Component({
   selector: 'app-instructor.update',
@@ -17,32 +21,44 @@ export class InstructorUpdateComponent implements OnInit {
   instructorForm!: FormGroup;
   subjects: Array<Subject> = [];
   posts: Array<string> = [];
-  formArray: FormArray = this.formBuilder.array([]);
+  departments: Array<string> = [];
+  subjectArray: FormArray = this.formBuilder.array([]);
   instructor: any = {};
   selectedSubjects: Map<Subject, boolean> = new Map<Subject, boolean>;
+  rolesArray: FormArray = this.formBuilder.array([]);
+  ADMIN = Roles.ADMIN;
+  INSTRUCTOR = Roles.INSTRUCTOR;
+  isAdmin = false;
 
-  constructor(private formBuilder: FormBuilder, private instructorService: InstructorService , private subjectService: SubjectService, private router: Router, private activatedRoute: ActivatedRoute){}
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private instructorService: InstructorService , private subjectService: SubjectService, private router: Router, private activatedRoute: ActivatedRoute){}
 
   ngOnInit(): void {
     Object.values(Post).forEach((key, idx) => {
       this.posts.push(key);
+    });
+    Object.values(Department).forEach((key, idx) => {
+      this.departments.push(key);
     });
     this.subjectService.getSubjects().subscribe(data => {
       this.subjects = data;
     });
     this.instructorForm = this.formBuilder.group(
       {
-        "id": "",
         "neptun": ["", { validators: [Validators.required, Validators.maxLength(6), Validators.minLength(6), Validators.pattern("^[a-zA-z](?=.*[a-zA-Z0-9]).{5,}$")], updateOn: "change" }],
         "name": ["", { validators: [Validators.required, Validators.maxLength(50)], updateOn: "change" }],
         "email": ["", { validators: [Validators.required, Validators.email], updateOn: "change" }],
-        "post": ["", { validators: [Validators.required], updateOn: "change" }],
-        "subjectIds": this.formArray,
-        "subjectNames": this.formBuilder.array([])
+        "birth": ["", { validators: [Validators.required], updateOn: "change" }],
+        "departmentOfInstructor": ["", { validators: [Validators.required], updateOn: "change" }],
+        "postOfInstructor": ["", { validators: [Validators.required], updateOn: "change" }],
+        "departmentOfStudent": "",
+        "subjectIds": this.subjectArray,
+        "subjectNames": this.formBuilder.array([]),
+        "roles": this.rolesArray,
+        "password": ["", { validators: [Validators.required, Validators.minLength(6)], updateOn: "change" }],
       }
     );
     let id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
-    this.instructorService.getInstructorById(id).subscribe(data => {
+    this.userService.getUserById(id).subscribe(data => {
       this.instructor = data;
       this.subjects.forEach(subject => {
         if(this.instructor.subjectIds.includes(subject.id)){
@@ -52,22 +68,38 @@ export class InstructorUpdateComponent implements OnInit {
         }
       });
       for(let it in this.instructor.subjectIds){
-        this.formArray.push(new FormControl(it));
+        this.subjectArray.push(new FormControl(it));
+      }
+      for(let it in this.instructor.roles){
+        this.rolesArray.push(new FormControl(it));
+      }
+      if(this.instructor.roles.includes(Roles.ADMIN)){
+        this.isAdmin = true;
       }
       this.instructorForm.patchValue({
         "id": this.instructor.id,
         "neptun": this.instructor.neptun,
         "name": this.instructor.name,
         "email": this.instructor.email,
-        "post": this.instructor.post,
+        "birth": this.instructor.birth,
+        "departmentOfInstructor": this.instructor.departmentOfInstructor,
+        "postOfInstructor": this.instructor.postOfInstructor,
+        "departmentOfStudent": this.instructor.departmentOfStudent,
         "subjectIds": this.instructor.subjectIds,
-        "subjectNames": this.instructor.subjectNames
+        "subjectNames": this.instructor.subjectNames,
+        "roles": this.instructor.roles,
+        "password": this.instructor.password
       });
     });
   }
 
-  onSubmit(instructor: Instructor){
-    this.instructorService.createInstructor(instructor).subscribe(res => {
+  onSubmit(instructor: User){
+    // this.instructorService.createInstructor(instructor).subscribe(res => {
+    //   this.instructorForm.reset();
+    //   this.router.navigate(["/instructors"]);
+    // });
+    instructor.id = this.instructor.id;
+    this.userService.updateUser(instructor).subscribe(res => {
       this.instructorForm.reset();
       this.router.navigate(["/instructors"]);
     });
@@ -83,6 +115,22 @@ export class InstructorUpdateComponent implements OnInit {
   
   get email(){
     return this.instructorForm.get("email");
+  }
+
+  get birth(){
+    return this.instructorForm.get("birth");
+  }
+
+  get department(){
+    return this.instructorForm.get("departmentOfInstructor");
+  }
+
+  get post(){
+    return this.instructorForm.get("postOfInstructor");
+  }
+
+  get password(){
+    return this.instructorForm.get("password");
   }
 
   getNeptunErrorMessage(){
@@ -111,14 +159,43 @@ export class InstructorUpdateComponent implements OnInit {
     return '';
   }
 
-  onCheckChange($event: any) {
-    this.formArray = this.instructorForm.get('subjectIds') as FormArray;
-    /* Selectedneptun */
+  getBirthErrorMessage(){
+    if (this.email?.dirty || this.email?.touched) {
+      if (this.email?.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getDepartmentErrorMessage(){
+    if (this.email?.dirty || this.email?.touched) {
+      if (this.email?.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getPostErrorMessage(){
+    if (this.email?.dirty || this.email?.touched) {
+      if (this.email?.hasError('required')) return 'You must enter a value!';
+    }
+    return '';
+  }
+
+  getPasswordErrorMessage(){
+    if (this.email?.dirty || this.email?.touched) {
+      if (this.email?.hasError('required')) return 'You must enter a value!';
+      if (this.email?.hasError('minlength')) return 'You must choose minimum 6 characters!';
+    }
+    return '';
+  }
+
+  onCheckChangeSubjects($event: any) {
+    this.subjectArray = this.instructorForm.get('subjectIds') as FormArray;
+    /* Selected */
     if($event.source.checked){
       // Add a new control in the arrayForm
       this.subjects.forEach(subject => {
         if(subject.name === $event.source.value){
-          this.formArray.push(new FormControl(subject.id));
+          this.subjectArray.push(new FormControl(subject.id));
         }
       });
     }
@@ -126,10 +203,37 @@ export class InstructorUpdateComponent implements OnInit {
     else{
       // find the unselected element
       let i: number = 0;
-      this.formArray.controls.forEach(ctrl => {
+      this.subjectArray.controls.forEach(ctrl => {
         if(ctrl.value == $event.source.value) {
           // Remove the unselected element from the arrayForm
-          this.formArray.removeAt(i);
+          this.subjectArray.removeAt(i);
+          return;
+        }
+        i++;
+      });
+    }
+  }
+
+  onCheckChangeRoles($event: any){
+    this.rolesArray = this.instructorForm.get('roles') as FormArray;
+    /* Selected */
+    if($event.source.checked){
+      // Add a new control in the arrayForm
+      if($event.source.value == Roles.ADMIN){
+        this.rolesArray.push(new FormControl(Roles.ADMIN));
+      }
+      if($event.source.value == Roles.INSTRUCTOR){
+        this.rolesArray.push(new FormControl(Roles.INSTRUCTOR));
+      }
+    }
+    /* unselected */
+    else{
+      // find the unselected element
+      let i: number = 0;
+      this.rolesArray.controls.forEach(ctrl => {
+        if(ctrl.value == $event.source.value) {
+          // Remove the unselected element from the arrayForm
+          this.rolesArray.removeAt(i);
           return;
         }
         i++;

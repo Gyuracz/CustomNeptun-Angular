@@ -25,7 +25,7 @@ export class StudentService {
   }
 
   updateStudent(student: Student): Observable<any>{
-    return this.requestService.put(`${URL}/`, student);
+    return this.requestService.put(`${URL}/${student.id}`, student);
   }
 
   deleteStudentById(id: number): Observable<any>{

@@ -7,7 +7,8 @@ import { Subject } from 'src/app/subject/subject.model';
 import { SemesterService } from 'src/app/semester/semester.service';
 import { Semester } from 'src/app/semester/semester.model';
 import { Instructor } from '../instructor.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UserService } from 'src/app/login/user.service';
+import { Roles } from 'src/app/login/roles.enum';
 
 @Component({
   selector: 'app-instructor.get-by-id',
@@ -20,7 +21,7 @@ export class InstructorGetByIdComponent implements OnInit {
   semesters: Array<Semester> = [];
   subjectOfSemesters: Map<Semester, Array<Subject>> = new Map<Semester, Array<Subject>>();
 
-  constructor(private activatedRoute: ActivatedRoute, private instructorService: InstructorService, private subjectService: SubjectService, private semesterService: SemesterService){}
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private instructorService: InstructorService, private subjectService: SubjectService, private semesterService: SemesterService){}
 
   ngOnInit(): void {
     this.getInstructorById();
@@ -28,9 +29,15 @@ export class InstructorGetByIdComponent implements OnInit {
 
   getInstructorById(){
     let id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
-    this.instructorService.getInstructorById(id).subscribe(data => {
-      this.getSubjectsOfSemester(data);
-      this.instructor = data;
+    // this.instructorService.getInstructorById(id).subscribe(data => {
+    //   this.getSubjectsOfSemester(data);
+    //   this.instructor = data;
+    // });
+    this.userService.getUserById(id).subscribe(data => {
+      if(data.roles.includes(Roles.INSTRUCTOR)){
+        this.getSubjectsOfSemester(data);
+        this.instructor = data
+      }
     });
   }
 
@@ -59,7 +66,8 @@ export class InstructorGetByIdComponent implements OnInit {
       this.instructor.subjectIds.splice(idIdx, 1);
       this.instructor.subjectNames = [];
     }
-    this.instructorService.updateInstructor(this.instructor).subscribe();
+    // this.instructorService.updateInstructor(this.instructor).subscribe();    
+    this.userService.updateUser(this.instructor).subscribe();
     this.getSubjectsOfSemester(this.instructor);
   }
 }

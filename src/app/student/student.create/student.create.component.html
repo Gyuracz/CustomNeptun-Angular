@@ -24,17 +24,37 @@
                     </mat-form-field>
                     <br>
                     <mat-form-field appearance="outline">
-                        <mat-label>Department</mat-label>
-                        <select matNativeControl required="true"formControlName="department">
-                            <option *ngFor="let it of departments">{{ it }}</option>
-                        </select>
+                        <mat-label>Birth date</mat-label>
+                        <input matInput type="date" formControlName="birth" required="true">
+                        <mat-error *ngIf="email!.invalid">{{getBirthErrorMessage()}}</mat-error>
                     </mat-form-field>
                     <br>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Department</mat-label>
+                        <select matNativeControl required="true"formControlName="departmentOfStudent">
+                            <option *ngFor="let it of departments">{{ it }}</option>
+                        </select>
+                        <mat-error *ngIf="email!.invalid">{{getDepartmentErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                    <br>
+                    Subjects:
                     <div formArrayName="subjectIds">
                         <div *ngFor="let it of subjects">
-                            <mat-checkbox [value]="it.name" (change)="onCheckChange($event)">{{ it.name }}</mat-checkbox>
+                            <mat-checkbox [value]="it.name" (change)="onCheckChangeSubjects($event)">{{ it.name }}</mat-checkbox>
                         </div>
                     </div>
+                    <br>
+                    Roles:
+                    <div formArrayName="roles">
+                        <mat-checkbox [value]="ADMIN" (change)="onCheckChangeRoles($event)">ADMIN</mat-checkbox>
+                        <mat-checkbox [value]="STUDENT" checked="true" disabled="true">STUDENT</mat-checkbox>
+                    </div>
+                    <br>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Password</mat-label>
+                        <input matInput type="password" formControlName="password" required="true">
+                        <mat-error *ngIf="email!.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                    </mat-form-field>
                     <br>
                     <a mat-button [routerLink]="['/students']"><span class="material-symbols-outlined">arrow_back_ios</span></a>
                     <button class="submitButton" mat-raised-button color="primary" type [disabled]="studentForm.invalid">Save</button>

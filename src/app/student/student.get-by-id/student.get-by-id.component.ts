@@ -6,6 +6,8 @@ import { StudentService } from '../student.service';
 import { SemesterService } from 'src/app/semester/semester.service';
 import { SubjectService } from 'src/app/subject/subject.service';
 import { Student } from '../student.model';
+import { Roles } from 'src/app/login/roles.enum';
+import { UserService } from 'src/app/login/user.service';
 
 @Component({
   selector: 'app-student.get-by-id',
@@ -18,7 +20,7 @@ export class StudentGetByIdComponent implements OnInit {
   semesters: Array<Semester> = [];
   subjectOfSemesters: Map<Semester, Array<Subject>> = new Map<Semester, Array<Subject>>();
 
-  constructor(private activatedRoute: ActivatedRoute, private studentService: StudentService, private semesterService: SemesterService, private subjectService: SubjectService){}
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private studentService: StudentService, private semesterService: SemesterService, private subjectService: SubjectService){}
 
   ngOnInit(): void {
       this.getStudents();
@@ -26,9 +28,15 @@ export class StudentGetByIdComponent implements OnInit {
 
   getStudents(){
     let id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
-    this.studentService.getStudentById(id).subscribe(data => {
-      this.getSubjectsOfSemester(data);
-      this.student = data;
+    // this.studentService.getStudentById(id).subscribe(data => {
+    //   this.getSubjectsOfSemester(data);
+    //   this.student = data;
+    // });
+    this.userService.getUserById(id).subscribe(data => {
+      if(data.roles.includes(Roles.STUDENT)){
+        this.getSubjectsOfSemester(data);
+        this.student = data
+      }
     });
   }
 
@@ -57,7 +65,8 @@ export class StudentGetByIdComponent implements OnInit {
       this.student.subjectIds.splice(idIdx, 1);
       this.student.subjectNames = [];
     }
-    this.studentService.updateStudent(this.student).subscribe();
+    // this.studentService.updateStudent(this.student).subscribe();
+    this.userService.updateUser(this.student).subscribe();
     this.getSubjectsOfSemester(this.student);
   }
 

@@ -33,6 +33,7 @@ import { InstructorUpdateComponent } from './instructor/instructor.update/instru
 import { StudentUpdateComponent } from './student/student.update/student.update.component';
 import { TableFilterPipe } from './table-filter.pipe';
 import { TablerOrderPipe } from './tabler-order.pipe';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { TablerOrderPipe } from './tabler-order.pipe';
     StudentUpdateComponent,
     TableFilterPipe,
     TableFilterPipe,
-    TablerOrderPipe
+    TablerOrderPipe,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

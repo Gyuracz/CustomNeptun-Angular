@@ -25,7 +25,7 @@ export class SubjectService{
   }
 
   updateSubject(subject: Subject): Observable<any>{
-    return this.requestService.put(`${URL}/`, subject);
+    return this.requestService.put(`${URL}/${subject.id}`, subject);
   }
 
   deleteSubjectById(id: number): Observable<any>{

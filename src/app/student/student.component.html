@@ -18,7 +18,6 @@
                                 <td><input mat-input type="text" placeholder="Neptun" formControlName="neptun" *ngIf="filterIcon == true"></td>
                                 <td><input mat-input type="text" placeholder="Name" formControlName="name" *ngIf="filterIcon == true"></td>
                                 <td><input mat-input type="text" placeholder="Email" formControlName="email" *ngIf="filterIcon == true"></td>
-                                <td><input mat-input type="text" placeholder="Department" formControlName="department" *ngIf="filterIcon == true"></td>
                             </tr>
                             <tr>
                                 <th>
@@ -36,11 +35,6 @@
                                     <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'email' && sort.direction == 'asc')" (click)="changeSorting('email', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
                                     <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'email' && sort.direction == 'desc')" (click)="changeSorting('email', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
                                 </th>
-                                <th>
-                                    Department
-                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'department' && sort.direction == 'asc')" (click)="changeSorting('department', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
-                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'department' && sort.direction == 'desc')" (click)="changeSorting('department', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
-                                </th>
                                 <th>Edit</th>
                                 <th>Delete</th>
                             </tr>
@@ -48,7 +42,6 @@
                                 <td><a mat-button [routerLink]="['/students', it.id]">{{ it.neptun }}</a></td>
                                 <td><a mat-button [routerLink]="['/students', it.id]">{{ it.name }}</a></td>
                                 <td><a mat-button [routerLink]="['/students', it.id]">{{ it.email }}</a></td>
-                                <td><a mat-button [routerLink]="['/students', it.id]">{{ it.department }}</a></td>
                                 <td><a mat-button [routerLink]="['/students/update', it.id]"><span class="material-symbols-outlined">edit</span></a></td>
                                 <td><a (click)="onDeleteStudent(it)"><span class="material-symbols-outlined">delete</span></a></td>
                             </tr>

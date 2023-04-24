@@ -5,6 +5,9 @@ import { Student } from './student.model';
 import { Subject } from '../subject/subject.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TablerOrderPipe } from '../tabler-order.pipe';
+import { UserService } from '../login/user.service';
+import { Roles } from '../login/roles.enum';
+import { User } from '../login/user.model';
 
 @Component({
   selector: 'app-student',
@@ -13,7 +16,7 @@ import { TablerOrderPipe } from '../tabler-order.pipe';
 })
 export class StudentComponent implements OnInit {
 
-  students: Array<Student> = [];
+  students: Array<User> = [];
   subjects: Array<Subject> = [];
   filterForm!: FormGroup;
   filterIcon = false;
@@ -22,7 +25,7 @@ export class StudentComponent implements OnInit {
     direction: ""
   };
 
-  constructor(private studentService: StudentService, private subjectService: SubjectService, private formBuilder: FormBuilder){}
+  constructor(private userService: UserService, private studentService: StudentService, private subjectService: SubjectService, private formBuilder: FormBuilder){}
 
   ngOnInit(): void {
     this.filterForm = this.formBuilder.group({
@@ -38,22 +41,38 @@ export class StudentComponent implements OnInit {
     this.subjectService.getSubjects().subscribe(data => {
       this.subjects = data;
     });
-    this.studentService.getStudents().subscribe(data => {
-      for(var student of data){
-        for(var subjectId of student.subjectIds){
-          for(var it of this.subjects){
-            if(subjectId === it.id){
-              student.subjectNames.push(it.name);
+    // this.studentService.getStudents().subscribe(data => {
+    //   for(var student of data){
+    //     for(var subjectId of student.subjectIds){
+    //       for(var it of this.subjects){
+    //         if(subjectId === it.id){
+    //           student.subjectNames.push(it.name);
+    //         }
+    //       }
+    //     }
+    //   }
+    //   this.students = data;
+    // });
+    this.userService.getUsers().subscribe(data => {
+      for(var user of data){
+        if(user.roles.includes(Roles.STUDENT)){
+          for(var subjectId of user.subjectIds){
+            for(var it of this.subjects){
+              if(subjectId === it.id){
+                user.subjectNames.push(it.name);
+              }
             }
           }
+          this.students.push(user);
         }
       }
-      this.students = data;
     });
   }
 
-  onDeleteStudent(student: Student){
-    this.studentService.deleteStudentById(student.id).subscribe();
+  onDeleteStudent(student: User){
+    // this.studentService.deleteStudentById(student.id).subscribe();
+    this.userService.deleteUserById(student.id).subscribe();
+    this.students = [];
     this.getStudents();
   }
 
@@ -61,6 +80,7 @@ export class StudentComponent implements OnInit {
     if(this.sort.column == column && this.sort.direction == direction){
       this.sort.column = "";
       this.sort.direction = "";
+      this.students = [];
       this.getStudents();
     }else{
       this.sort.column = column;

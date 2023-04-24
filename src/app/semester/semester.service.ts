@@ -25,7 +25,7 @@ export class SemesterService {
   }
 
   updateSemester(semester: Semester): Observable<any>{
-    return this.requestService.put(`${URL}/`, semester);
+    return this.requestService.put(`${URL}/${semester.id}`, semester);
   }
 
   deleteSemesterById(id: number): Observable<any>{

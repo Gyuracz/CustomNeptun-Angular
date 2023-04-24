@@ -15,10 +15,11 @@ import { SubjectUpdateComponent } from './subject/subject.update/subject.update.
 import { InstructorUpdateComponent } from './instructor/instructor.update/instructor.update.component';
 import { SemesterUpdateComponent } from './semester/semester.update/semester.update.component';
 import { StudentUpdateComponent } from './student/student.update/student.update.component';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
   // Default path
-  { path: "", redirectTo: "", pathMatch: "full" },
+  { path: "", component: LoginComponent },
   // Instructors' paths
   { path: "instructors", component: InstructorComponent },
   { path: "instructors/create", component: InstructorCreateComponent },
