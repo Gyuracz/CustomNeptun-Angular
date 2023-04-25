@@ -11,7 +11,8 @@
           <a mat-button routerLink="/semesters">Semesters</a>
           <a mat-button routerLink="/students">Students</a>
           <a mat-button routerLink="/subjects">Subjects</a>
-          <a mat-button routerLink="/">Login</a>
+          <a mat-button routerLink="/login" *ngIf="!isLoggedIn">Login</a>
+          <a mat-button routerLink="/login" (click)="logout()" *ngIf="isLoggedIn">Logout</a>
         </nav>
       </div>
     </div>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { RequestService } from '../request.service';
 import { Observable } from 'rxjs'
 import { Subject } from './subject.model';
+import { HttpHeaders } from '@angular/common/http';
 
 const URL = "api/subjects";
 

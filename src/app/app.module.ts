@@ -4,17 +4,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { HttpClientModule } from '@angular/common/http';
-
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { DbService } from './db.service';
-
-// Import Materials
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatInputModule } from '@angular/material/input'
 import { MatCheckboxModule } from '@angular/material/checkbox'
-
 import { InstructorComponent } from './instructor/instructor.component';
 import { SubjectComponent } from './subject/subject.component';
 import { SemesterComponent } from './semester/semester.component';
@@ -34,6 +30,11 @@ import { StudentUpdateComponent } from './student/student.update/student.update.
 import { TableFilterPipe } from './table-filter.pipe';
 import { TablerOrderPipe } from './tabler-order.pipe';
 import { LoginComponent } from './login/login.component';
+import { MainComponent } from './main/main.component';
+import { AuthService } from './login/auth.service';
+import { AuthGuard } from './login/auth.guard';
+import { httpInterceptorProviders } from './login';
+import { RequestService } from './request.service';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { LoginComponent } from './login/login.component';
     TableFilterPipe,
     TableFilterPipe,
     TablerOrderPipe,
-    LoginComponent
+    LoginComponent,
+    MainComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +76,7 @@ import { LoginComponent } from './login/login.component';
     MatInputModule,
     MatCheckboxModule
   ],
-  providers: [DbService],
+providers: [DbService, RequestService, AuthService, AuthGuard/*, httpInterceptorProviders*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

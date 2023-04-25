@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
+import { User } from './user.model';
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,18 +14,32 @@ export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
   user: any = {};
+  incorrect = false;
 
-  constructor(private formBuilder: FormBuilder, private router: Router){}
+  constructor(private formBuilder: FormBuilder, private router: Router, private userService: UserService, private authService: AuthService){}
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
       neptun:  ["", { validators: [Validators.required, Validators.maxLength(6), Validators.minLength(6), Validators.pattern("^[a-zA-z](?=.*[a-zA-Z0-9]).{5,}$")], updateOn: "change" }],
-      password: ""
+      password: ["", { validators: [Validators.required], updateOn: "change" }]
     });
   }
 
-  onSubmit(user: any){
-
+  onSubmit(loginUser: any){
+    this.userService.getUsers().subscribe(users => {
+      this.user = users.find((it: User) => {
+        return it.neptun.toLowerCase() === loginUser.neptun.toLowerCase() && it.password === loginUser.password;
+      });
+      if(this.user){
+        this.authService.login(this.user).subscribe(res => {
+          if(res){
+            this.router.navigate(["/"]);
+          }
+        });
+      }else{
+        this.incorrect = true;
+      }
+    });
   }
 
   get neptun(){

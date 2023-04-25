@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { AuthService } from './login/auth.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  private myBackgroundImageUrl: string = "../assets/images/wallpaper.png";
+  myBackgroundImageUrl: string = "../assets/images/wallpaper.png";
 
-  constructor(){}
-  ngOnInit(): void {
-    
+  constructor(public authService: AuthService){}
+
+  get isLoggedIn(){
+    return this.authService.isAuthenticated();
+  }
+
+  logout(){
+    this.authService.logout();
   }
   
 }

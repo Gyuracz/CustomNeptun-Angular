@@ -16,27 +16,31 @@ import { InstructorUpdateComponent } from './instructor/instructor.update/instru
 import { SemesterUpdateComponent } from './semester/semester.update/semester.update.component';
 import { StudentUpdateComponent } from './student/student.update/student.update.component';
 import { LoginComponent } from './login/login.component';
+import { MainComponent } from './main/main.component';
+import { AuthGuard } from './login/auth.guard';
 
 const routes: Routes = [
   // Default path
-  { path: "", component: LoginComponent },
+  { path: "", component: MainComponent, canActivate: [AuthGuard] },
+  // Login page path
+  { path: "login", component: LoginComponent },
   // Instructors' paths
-  { path: "instructors", component: InstructorComponent },
+  { path: "instructors", component: InstructorComponent, canActivate: [AuthGuard] },
   { path: "instructors/create", component: InstructorCreateComponent },
   { path: "instructors/update/:id", component: InstructorUpdateComponent },
   { path: "instructors/:id", component: InstructorGetByIdComponent },
   // Semesters' paths
-  { path: "semesters", component: SemesterComponent },
+  { path: "semesters", component: SemesterComponent, canActivate: [AuthGuard] },
   { path: "semesters/create", component: SemesterCreateComponent },
   { path: "semesters/update/:id", component: SemesterUpdateComponent },
   { path: "semesters/:id", component: SemesterGetByIdComponent },
   // Students' paths
-  { path: "students", component: StudentComponent },
+  { path: "students", component: StudentComponent, canActivate: [AuthGuard] },
   { path: "students/create", component: StudentCreateComponent },
   { path: "students/update/:id", component: StudentUpdateComponent },
   { path: "students/:id", component: StudentGetByIdComponent },
   // Subjects' paths
-  { path: "subjects", component: SubjectComponent },
+  { path: "subjects", component: SubjectComponent, canActivate: [AuthGuard] },
   { path: "subjects/create", component: SubjectCreateComponent },
   { path: "subjects/update/:id", component: SubjectUpdateComponent },
   // Error path
