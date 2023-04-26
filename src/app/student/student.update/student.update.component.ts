@@ -25,7 +25,7 @@ export class StudentUpdateComponent implements OnInit {
   selectedSubjects: Map<Subject, boolean> = new Map<Subject, boolean>;
   rolesArray: FormArray = this.formBuilder.array([]);
   ADMIN = Roles.ADMIN;
-  INSTRUCTOR = Roles.INSTRUCTOR;
+  STUDENT = Roles.STUDENT;
   isAdmin = false;
 
   constructor(private formBuilder: FormBuilder, private userService: UserService, private studentService: StudentService , private subjectService: SubjectService, private router: Router, private activatedRoute: ActivatedRoute){}
@@ -213,8 +213,8 @@ export class StudentUpdateComponent implements OnInit {
       if($event.source.value == Roles.ADMIN){
         this.rolesArray.push(new FormControl(Roles.ADMIN));
       }
-      if($event.source.value == Roles.INSTRUCTOR){
-        this.rolesArray.push(new FormControl(Roles.INSTRUCTOR));
+      if($event.source.value == Roles.STUDENT){
+        this.rolesArray.push(new FormControl(Roles.STUDENT));
       }
     }
     /* unselected */
