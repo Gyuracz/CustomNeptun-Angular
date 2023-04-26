@@ -3,6 +3,8 @@ import { SubjectService } from './subject.service';
 import { Subject } from './subject.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TablerOrderPipe } from '../tabler-order.pipe';
+import { AuthService } from '../login/auth.service';
+import { Roles } from '../login/roles.enum';
 
 @Component({
   selector: 'app-subject',
@@ -19,7 +21,7 @@ export class SubjectComponent implements OnInit {
     direction: ""
   };
 
-  constructor(private subjectService: SubjectService, private formBuilder: FormBuilder){}
+  constructor(private subjectService: SubjectService, private formBuilder: FormBuilder, private authService: AuthService){}
 
   ngOnInit(): void {
       this.filterForm = this.formBuilder.group({
@@ -38,8 +40,12 @@ export class SubjectComponent implements OnInit {
   }
 
   onDeleteSubject(subject: Subject){
-    this.subjectService.deleteSubjectById(subject.id).subscribe();
-    this.getSubjects();
+    this.authService.userInfo.subscribe((res:any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        this.subjectService.deleteSubjectById(subject.id).subscribe();
+        this.getSubjects();
+      }
+    });
   }
 
   changeSorting(column: string, direction: string){

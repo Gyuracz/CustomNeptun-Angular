@@ -13,7 +13,13 @@ export class MainComponent implements OnInit {
   constructor(public authService: AuthService){}
 
   ngOnInit(): void {
-      this.user = this.authService.loadUserInfo();
+      this.authService.userInfo.subscribe(res => {
+        this.user = res;
+        if(this.user.roles){
+          this.user.roles.replace("[", "");
+          this.user.roles.replace("]", "");
+        }
+      });
   }
 
 }

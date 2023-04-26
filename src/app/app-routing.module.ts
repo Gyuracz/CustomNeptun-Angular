@@ -18,6 +18,7 @@ import { StudentUpdateComponent } from './student/student.update/student.update.
 import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { AuthGuard } from './login/auth.guard';
+import { AdminGuard } from './login/admin.guard';
 
 const routes: Routes = [
   // Default path
@@ -26,23 +27,23 @@ const routes: Routes = [
   { path: "login", component: LoginComponent },
   // Instructors' paths
   { path: "instructors", component: InstructorComponent, canActivate: [AuthGuard] },
-  { path: "instructors/create", component: InstructorCreateComponent },
-  { path: "instructors/update/:id", component: InstructorUpdateComponent },
-  { path: "instructors/:id", component: InstructorGetByIdComponent },
+  { path: "instructors/create", component: InstructorCreateComponent, canActivate: [AdminGuard] },
+  { path: "instructors/update/:id", component: InstructorUpdateComponent, canActivate: [AdminGuard] },
+  { path: "instructors/:id", component: InstructorGetByIdComponent, canActivate: [AuthGuard] },
   // Semesters' paths
   { path: "semesters", component: SemesterComponent, canActivate: [AuthGuard] },
-  { path: "semesters/create", component: SemesterCreateComponent },
-  { path: "semesters/update/:id", component: SemesterUpdateComponent },
-  { path: "semesters/:id", component: SemesterGetByIdComponent },
+  { path: "semesters/create", component: SemesterCreateComponent, canActivate: [AdminGuard] },
+  { path: "semesters/update/:id", component: SemesterUpdateComponent, canActivate: [AdminGuard] },
+  { path: "semesters/:id", component: SemesterGetByIdComponent, canActivate: [AuthGuard] },
   // Students' paths
   { path: "students", component: StudentComponent, canActivate: [AuthGuard] },
-  { path: "students/create", component: StudentCreateComponent },
-  { path: "students/update/:id", component: StudentUpdateComponent },
-  { path: "students/:id", component: StudentGetByIdComponent },
+  { path: "students/create", component: StudentCreateComponent, canActivate: [AdminGuard] },
+  { path: "students/update/:id", component: StudentUpdateComponent, canActivate: [AdminGuard] },
+  { path: "students/:id", component: StudentGetByIdComponent, canActivate: [AuthGuard] },
   // Subjects' paths
   { path: "subjects", component: SubjectComponent, canActivate: [AuthGuard] },
-  { path: "subjects/create", component: SubjectCreateComponent },
-  { path: "subjects/update/:id", component: SubjectUpdateComponent },
+  { path: "subjects/create", component: SubjectCreateComponent, canActivate: [AdminGuard] },
+  { path: "subjects/update/:id", component: SubjectUpdateComponent, canActivate: [AdminGuard] },
   // Error path
   { path: "**", redirectTo: "", pathMatch: "full" }
 ];

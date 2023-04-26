@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { tap, BehaviorSubject, Observable, of, map } from 'rxjs';
+import { BehaviorSubject, Observable, of, map } from 'rxjs';
 import { User } from './user.model';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
@@ -66,7 +66,6 @@ export class AuthService {
         this.userInfo.next(userdata);
       }
     }
-    return this.user;
   }
 
   getAuthorizationToken() {

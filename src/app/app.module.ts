@@ -35,6 +35,7 @@ import { AuthService } from './login/auth.service';
 import { AuthGuard } from './login/auth.guard';
 import { httpInterceptorProviders } from './login';
 import { RequestService } from './request.service';
+import { AdminGuard } from './login/admin.guard';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,7 @@ import { RequestService } from './request.service';
     MatInputModule,
     MatCheckboxModule
   ],
-providers: [DbService, RequestService, AuthService, AuthGuard/*, httpInterceptorProviders*/],
+providers: [DbService, RequestService, AuthService, AuthGuard, AdminGuard/*, httpInterceptorProviders*/],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

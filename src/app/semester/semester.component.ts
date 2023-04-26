@@ -5,6 +5,8 @@ import { SubjectService } from '../subject/subject.service';
 import { Subject } from '../subject/subject.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { TablerOrderPipe } from '../tabler-order.pipe';
+import { AuthService } from '../login/auth.service';
+import { Roles } from '../login/roles.enum';
 
 @Component({
   selector: 'app-semester',
@@ -22,7 +24,7 @@ export class SemesterComponent implements OnInit {
     direction: ""
   };
 
-  constructor(private semesterService: SemesterService, private subjectService: SubjectService, private formBuilder: FormBuilder){}
+  constructor(private semesterService: SemesterService, private subjectService: SubjectService, private formBuilder: FormBuilder, private authService: AuthService){}
 
   ngOnInit(){
     this.filterForm = this.formBuilder.group({
@@ -52,8 +54,12 @@ export class SemesterComponent implements OnInit {
   }
 
   onDeleteSemester(semester: Semester){
-    this.semesterService.deleteSemesterById(semester.id).subscribe();
-    this.getSemester();
+    this.authService.userInfo.subscribe((res:any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        this.semesterService.deleteSemesterById(semester.id).subscribe();
+        this.getSemester();
+      }
+    });
   }
 
   changeSorting(column: string, direction: string){

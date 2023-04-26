@@ -8,6 +8,7 @@ import { SubjectService } from 'src/app/subject/subject.service';
 import { Student } from '../student.model';
 import { Roles } from 'src/app/login/roles.enum';
 import { UserService } from 'src/app/login/user.service';
+import { AuthService } from 'src/app/login/auth.service';
 
 @Component({
   selector: 'app-student.get-by-id',
@@ -20,7 +21,7 @@ export class StudentGetByIdComponent implements OnInit {
   semesters: Array<Semester> = [];
   subjectOfSemesters: Map<Semester, Array<Subject>> = new Map<Semester, Array<Subject>>();
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private studentService: StudentService, private semesterService: SemesterService, private subjectService: SubjectService){}
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private studentService: StudentService, private semesterService: SemesterService, private subjectService: SubjectService, private authService: AuthService){}
 
   ngOnInit(): void {
       this.getStudents();
@@ -60,14 +61,18 @@ export class StudentGetByIdComponent implements OnInit {
   }
 
   onDeleteSubjectFromStudent(subject: Subject){
-    let idIdx = this.student.subjectIds.indexOf(subject.id, 0);
-    if(idIdx !== -1){
-      this.student.subjectIds.splice(idIdx, 1);
-      this.student.subjectNames = [];
-    }
-    // this.studentService.updateStudent(this.student).subscribe();
-    this.userService.updateUser(this.student).subscribe();
-    this.getSubjectsOfSemester(this.student);
+    this.authService.userInfo.subscribe((res:any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        let idIdx = this.student.subjectIds.indexOf(subject.id, 0);
+        if(idIdx !== -1){
+          this.student.subjectIds.splice(idIdx, 1);
+          this.student.subjectNames = [];
+        }
+        // this.studentService.updateStudent(this.student).subscribe();
+        this.userService.updateUser(this.student).subscribe();
+        this.getSubjectsOfSemester(this.student);
+      }
+    });
   }
 
 }

@@ -9,6 +9,7 @@ import { Semester } from 'src/app/semester/semester.model';
 import { Instructor } from '../instructor.model';
 import { UserService } from 'src/app/login/user.service';
 import { Roles } from 'src/app/login/roles.enum';
+import { AuthService } from 'src/app/login/auth.service';
 
 @Component({
   selector: 'app-instructor.get-by-id',
@@ -21,7 +22,7 @@ export class InstructorGetByIdComponent implements OnInit {
   semesters: Array<Semester> = [];
   subjectOfSemesters: Map<Semester, Array<Subject>> = new Map<Semester, Array<Subject>>();
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private instructorService: InstructorService, private subjectService: SubjectService, private semesterService: SemesterService){}
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private instructorService: InstructorService, private subjectService: SubjectService, private semesterService: SemesterService, private authService: AuthService){}
 
   ngOnInit(): void {
     this.getInstructorById();
@@ -61,13 +62,17 @@ export class InstructorGetByIdComponent implements OnInit {
   }
 
   onDeleteSubjectFromInstructor(subject: Subject){
-    let idIdx = this.instructor.subjectIds.indexOf(subject.id, 0);
-    if(idIdx !== -1){
-      this.instructor.subjectIds.splice(idIdx, 1);
-      this.instructor.subjectNames = [];
-    }
-    // this.instructorService.updateInstructor(this.instructor).subscribe();    
-    this.userService.updateUser(this.instructor).subscribe();
-    this.getSubjectsOfSemester(this.instructor);
+    this.authService.userInfo.subscribe((res:any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        let idIdx = this.instructor.subjectIds.indexOf(subject.id, 0);
+        if(idIdx !== -1){
+          this.instructor.subjectIds.splice(idIdx, 1);
+          this.instructor.subjectNames = [];
+        }
+        // this.instructorService.updateInstructor(this.instructor).subscribe();    
+        this.userService.updateUser(this.instructor).subscribe();
+        this.getSubjectsOfSemester(this.instructor);
+      }
+    });
   }
 }

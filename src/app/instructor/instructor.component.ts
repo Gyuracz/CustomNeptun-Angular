@@ -8,6 +8,7 @@ import { TablerOrderPipe } from '../tabler-order.pipe';
 import { UserService } from '../login/user.service';
 import { Roles } from '../login/roles.enum';
 import { User } from '../login/user.model';
+import { AuthService } from '../login/auth.service';
 
 @Component({
   selector: 'app-instructor',
@@ -25,7 +26,7 @@ export class InstructorComponent implements OnInit {
     direction: ""
   };
 
-  constructor(private userService: UserService, private instructorService: InstructorService, private subjectService: SubjectService, private formBuilder: FormBuilder){}
+  constructor(private userService: UserService, private instructorService: InstructorService, private subjectService: SubjectService, private formBuilder: FormBuilder, private authService: AuthService){}
 
   ngOnInit(){
     this.filterForm = this.formBuilder.group({
@@ -71,9 +72,13 @@ export class InstructorComponent implements OnInit {
 
   onDeleteInstructor(instructor: User){
     // this.instructorService.deleteInstructorById(instructor.id).subscribe();
-    this.userService.deleteUserById(instructor.id).subscribe();
-    this.instructors = [];
-    this.getInstructors();
+    this.authService.userInfo.subscribe((res:any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        this.userService.deleteUserById(instructor.id).subscribe();
+        this.instructors = [];
+        this.getInstructors();
+      }
+    });
   }
 
   changeSorting(column: string, direction: string){

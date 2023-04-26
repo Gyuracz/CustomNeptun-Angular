@@ -5,6 +5,8 @@ import { Subject } from 'src/app/subject/subject.model';
 import { SubjectService } from 'src/app/subject/subject.service';
 import { Semester } from '../semester.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Roles } from 'src/app/login/roles.enum';
+import { AuthService } from 'src/app/login/auth.service';
 
 @Component({
   selector: 'app-semester.get-by-id',
@@ -15,7 +17,7 @@ export class SemesterGetByIdComponent implements OnInit {
 
   semester: any = {};
 
-  constructor(private activatedRoute: ActivatedRoute, private semesterService: SemesterService, private subjectService: SubjectService){}
+  constructor(private activatedRoute: ActivatedRoute, private semesterService: SemesterService, private subjectService: SubjectService, private authService: AuthService){}
 
   ngOnInit(): void {
     this.getSemesters();
@@ -42,13 +44,17 @@ export class SemesterGetByIdComponent implements OnInit {
   }
 
   onDeleteSubjectFromSemester(subjectName: string){
-    let nameIdx = this.semester.subjectNames.indexOf(subjectName, 0);
-    if(nameIdx !== -1){
-      this.semester.subjectIds.splice(nameIdx, 1);
-      this.semester.subjectNames = [];
-    }
-    this.semesterService.updateSemester(this.semester).subscribe();
-    this.getSubjectOfSemesters(this.semester);
+    this.authService.userInfo.subscribe((res:any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        let nameIdx = this.semester.subjectNames.indexOf(subjectName, 0);
+        if(nameIdx !== -1){
+          this.semester.subjectIds.splice(nameIdx, 1);
+          this.semester.subjectNames = [];
+        }
+        this.semesterService.updateSemester(this.semester).subscribe();
+        this.getSubjectOfSemesters(this.semester);
+      }
+    });
   }
 
 }
