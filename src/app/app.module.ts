@@ -42,7 +42,7 @@ import { AdminGuard } from './login/admin.guard';
     MatInputModule,
     MatCheckboxModule
   ],
-  providers: [DbService, RequestService, AuthService, AuthGuard, AdminGuard/*, httpInterceptorProviders*/],
+  providers: [DbService, RequestService, AuthService, AuthGuard, AdminGuard, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

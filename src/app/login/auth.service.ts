@@ -69,12 +69,9 @@ export class AuthService {
   }
 
   getAuthorizationToken() {
-    const token = localStorage.getItem('access_token');
-    let currentUser: any;
-    if(token){
-      currentUser = JSON.parse(token);
-    }
-    return currentUser.token;
+    let token: any;
+    token = localStorage.getItem('access_token');
+    return token;
   }
   
 }
