@@ -6,6 +6,7 @@ import { SemesterGetByIdComponent } from "./semester.get-by-id/semester.get-by-i
 import { Routes, RouterModule } from "@angular/router";
 import { AdminGuard } from "../login/admin.guard";
 import { SemesterGetAllComponent } from "./semester.get-all/semester.get-all.component";
+import { SemesterCreateComponent } from "./semester.create/semester.create.component";
 
 const routes: Routes = [
     {
@@ -14,7 +15,7 @@ const routes: Routes = [
         canActivate: [AuthGuard],
         children: [
             { path: "", component: SemesterGetAllComponent, canActivate: [AuthGuard] },
-            { path: "create", component: SemesterComponent, canActivate: [AdminGuard] },
+            { path: "create", component: SemesterCreateComponent, canActivate: [AdminGuard] },
             { path: "update/:id", component: SemesterUpdateComponent, canActivate: [AdminGuard] },
             { path: ":id", component: SemesterGetByIdComponent, canActivate: [AuthGuard] }
         ]

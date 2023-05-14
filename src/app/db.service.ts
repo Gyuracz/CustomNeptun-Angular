@@ -16,9 +16,9 @@ export class DbService implements InMemoryDbService {
   createDb() {
     const db = {
       users: UsersTable.users,
-      instructors: InstructorTable.instructors,
+      // instructors: InstructorTable.instructors,
       semesters: SemesterTable.semesters,
-      students: StudentTable.students,
+      // students: StudentTable.students,
       subjects: SubjectTable.subjects
     }
     return db;
