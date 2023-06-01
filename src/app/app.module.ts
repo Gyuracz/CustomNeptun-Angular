@@ -16,9 +16,10 @@ import { LoginComponent } from './login/login.component';
 import { MainComponent } from './main/main.component';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './login/auth.guard';
-import { httpInterceptorProviders } from './login';
+import { httpInterceptorProviders } from './http-interceptor-providers';
 import { RequestService } from './request.service';
 import { AdminGuard } from './login/admin.guard';
+import { CacheService } from './cache.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { AdminGuard } from './login/admin.guard';
     MatInputModule,
     MatCheckboxModule
   ],
-  providers: [DbService, RequestService, AuthService, AuthGuard, AdminGuard, httpInterceptorProviders],
+  providers: [DbService, RequestService, AuthService, CacheService, AuthGuard, AdminGuard, httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
