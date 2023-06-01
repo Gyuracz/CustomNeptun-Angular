@@ -1,29 +1,43 @@
-@font-color: rgb(77, 77, 77);
+@box-color: rgb(99, 99, 99);
+@background-color: rgb(141, 141, 141);
+
+.container-fluid{
+    background-color: @background-color;
+    color: white;
+    .material-symbols-outlined{
+        color: white;
+    }
+}
 
 h1{
     text-align: center;
-    color: @font-color;
-    margin-top: 30pt;
+    padding-top: 30pt;
 }
 
 .box{
     margin-top: 15pt;
-    background-color: rgba(77, 77, 77, 0.3);
+    background-color: @box-color;
+    margin-bottom: 100%;
+    border-radius: 15pt;
     table{
         width: 100%;
         tr{
-            border-bottom: 1pt @font-color solid;
+            border-bottom: 1pt white solid;
         }
         .deleteButton{
             padding: 5pt 15pt;
             margin: 5pt 0;
         }
+        a{
+            text-decoration: none;
+            margin: 0;
+            padding: 0;
+        }
     }
     form{
         input, select{
-            color: @font-color;
             border-radius: 5pt;
-            border: 1pt @font-color solid;
+            border: 1pt @box-color solid;
             padding: 3pt 5pt;
         }
     }

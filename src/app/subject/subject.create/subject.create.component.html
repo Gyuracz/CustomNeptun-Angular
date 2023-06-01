@@ -1,40 +1,43 @@
-<h1>Add new subject</h1>
+<div class="container-fluid">
+    <h1>Add new subject</h1>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="box">
-                <form [formGroup]="subjectForm" (ngSubmit)="onSubmit(subjectForm.value)">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Name</mat-label>
-                        <input matInput type="text" placeholder="Name" formControlName="name" required="true">
-                        <mat-error *ngIf="name?.invalid">{{ getNameErrorMessage() }}</mat-error>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Code</mat-label>
-                        <input matInput type="text" placeholder="Code" formControlName="code" required="true">
-                        <mat-error *ngIf="code?.invalid">{{ getCodeErrorMessage() }}</mat-error>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Credit</mat-label>
-                        <input matInput type="number" placeholder="Credit" formControlName="credit" required="true">
-                        <mat-error *ngIf="credit?.invalid">{{ getCreditErrorMessage() }}</mat-error>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Department</mat-label>
-                        <select matNativeControl required="true"formControlName="department">
-                            <option *ngFor="let it of departments">{{ it }}</option>
-                        </select>
-                        <mat-error *ngIf="department?.invalid">{{ getDepartmentErrorMessage() }}</mat-error>
-                    </mat-form-field>
-                    <br>
-                    <a mat-button [routerLink]="['/subjects']"><span class="material-symbols-outlined">arrow_back_ios</span></a>
-                    <button class="submitButton" mat-raised-button color="primary" type [disabled]="subjectForm.invalid">Save</button>
-                </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="box">
+                    <form [formGroup]="subjectForm" (ngSubmit)="onSubmit(subjectForm.value)">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input matInput type="text" placeholder="Name" formControlName="name" required="true">
+                            <mat-error *ngIf="name?.invalid">{{ getNameErrorMessage() }}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Code</mat-label>
+                            <input matInput type="text" placeholder="Code" formControlName="code" required="true">
+                            <mat-error *ngIf="code?.invalid">{{ getCodeErrorMessage() }}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Credit</mat-label>
+                            <input matInput type="number" placeholder="Credit" formControlName="credit" required="true">
+                            <mat-error *ngIf="credit?.invalid">{{ getCreditErrorMessage() }}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Department</mat-label>
+                            <select matNativeControl required="true"formControlName="department">
+                                <option *ngFor="let it of departments">{{ it }}</option>
+                            </select>
+                            <mat-error *ngIf="department?.invalid">{{ getDepartmentErrorMessage() }}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <a mat-button [routerLink]="['/subjects']"><span class="material-symbols-outlined">arrow_back_ios</span></a>
+                        <button class="submitButton" mat-raised-button color="primary" type [disabled]="subjectForm.invalid">Save</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+    
 </div>

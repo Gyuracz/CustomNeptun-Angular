@@ -1,41 +1,44 @@
-<h1>{{ semester.name }}</h1>
+<div class="container-fluid">
+    <h1>{{ semester.name }}</h1>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-lg-6">
-            <mat-card class="box">
-                <mat-card-content>
-                    <h2>Semester's data</h2>
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-6">
+                <mat-card class="box">
+                    <mat-card-content>
+                        <h2>Semester's data</h2>
+                        <table>
+                            <tr>
+                                <th>Name:</th>
+                                <td>{{ semester.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Start:</th>
+                                <td>{{ semester.start }}</td>
+                            </tr>
+                            <tr>
+                                <th>End:</th>
+                                <td>{{ semester.end }}</td>
+                            </tr>
+                        </table>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <a mat-button [routerLink]="['/semesters']"><span class="material-symbols-outlined">arrow_back_ios</span></a>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="box">
+                    <h2>Subjects</h2>
                     <table>
-                        <tr>
-                            <th>Name:</th>
-                            <td>{{ semester.name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Start:</th>
-                            <td>{{ semester.start }}</td>
-                        </tr>
-                        <tr>
-                            <th>End:</th>
-                            <td>{{ semester.end }}</td>
+                        <tr *ngFor="let it of semester.subjectNames">
+                            <td>{{ it }}</td>
+                            <td class="buttonCell"><a (click)="onDeleteSubjectFromSemester(it)"><span class="material-symbols-outlined">delete</span></a></td>
                         </tr>
                     </table>
-                </mat-card-content>
-                <mat-card-actions>
-                    <a mat-button [routerLink]="['/semesters']"><span class="material-symbols-outlined">arrow_back_ios</span></a>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-        <div class="col-12 col-lg-6">
-            <div class="box">
-                <h2>Subjects</h2>
-                <table>
-                    <tr *ngFor="let it of semester.subjectNames">
-                        <td>{{ it }}</td>
-                        <td class="buttonCell"><a (click)="onDeleteSubjectFromSemester(it)"><span class="material-symbols-outlined">delete</span></a></td>
-                    </tr>
-                </table>
+                </div>
             </div>
         </div>
     </div>
+    
 </div>

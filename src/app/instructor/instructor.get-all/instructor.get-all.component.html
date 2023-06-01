@@ -1,54 +1,57 @@
-<h1>Instructors</h1>
+<div class="container-fluid">
+    <h1>Instructors</h1>
 
-<div class="container">
-    <div class="row">
-        <div class="col-11"></div>
-        <div class="col-1">
-            <a mat-button [routerLink]="['/instructors/create']"><span class="material-symbols-outlined">add_circle</span></a>
+    <div class="container">
+        <div class="row">
+            <div class="col-11"></div>
+            <div class="col-1">
+                <a mat-button [routerLink]="['/instructors/create']"><span class="material-symbols-outlined">add_circle</span></a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <mat-card class="box">
+                    <mat-card-content>
+                        <form [formGroup]="filterForm">
+                            <table>
+                                <span class="material-symbols-outlined" (click)="filterIcon = !filterIcon">filter_alt</span>
+                                <tr>
+                                    <td><input mat-input type="text" placeholder="Neptun" formControlName="neptun" *ngIf="filterIcon == true"></td>
+                                    <td><input mat-input type="text" placeholder="Name" formControlName="name" *ngIf="filterIcon == true"></td>
+                                    <td><input mat-input type="text" placeholder="Email" formControlName="email" *ngIf="filterIcon == true"></td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Neptun code
+                                        <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'neptun' && sort.direction == 'asc')" (click)="changeSorting('neptun', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                        <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'neptun' && sort.direction == 'desc')" (click)="changeSorting('neptun', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                    </th>
+                                    <th>
+                                        Name
+                                        <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'asc')" (click)="changeSorting('name', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                        <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'desc')" (click)="changeSorting('name', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                    </th>
+                                    <th>
+                                        Email
+                                        <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'email' && sort.direction == 'asc')" (click)="changeSorting('email', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
+                                        <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'email' && sort.direction == 'desc')" (click)="changeSorting('email', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
+                                    </th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                </tr>
+                                <tr *ngFor="let it of instructors | tableFilter: filterForm.value">
+                                    <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.neptun }}</a></td>
+                                    <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.name }}</a></td>
+                                    <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.email }}</a></td>
+                                    <td><a mat-button [routerLink]="['/instructors/update', it.id]"><span class="material-symbols-outlined">edit</span></a></td>
+                                    <td><a (click)="onDeleteInstructor(it)"><span class="material-symbols-outlined">delete</span></a></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-12">
-            <mat-card class="box">
-                <mat-card-content>
-                    <form [formGroup]="filterForm">
-                        <table>
-                            <span class="material-symbols-outlined" (click)="filterIcon = !filterIcon">filter_alt</span>
-                            <tr>
-                                <td><input mat-input type="text" placeholder="Neptun" formControlName="neptun" *ngIf="filterIcon == true"></td>
-                                <td><input mat-input type="text" placeholder="Name" formControlName="name" *ngIf="filterIcon == true"></td>
-                                <td><input mat-input type="text" placeholder="Email" formControlName="email" *ngIf="filterIcon == true"></td>
-                            </tr>
-                            <tr>
-                                <th>
-                                    Neptun code
-                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'neptun' && sort.direction == 'asc')" (click)="changeSorting('neptun', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
-                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'neptun' && sort.direction == 'desc')" (click)="changeSorting('neptun', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
-                                </th>
-                                <th>
-                                    Name
-                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'asc')" (click)="changeSorting('name', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
-                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'name' && sort.direction == 'desc')" (click)="changeSorting('name', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
-                                </th>
-                                <th>
-                                    Email
-                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'email' && sort.direction == 'asc')" (click)="changeSorting('email', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
-                                    <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'email' && sort.direction == 'desc')" (click)="changeSorting('email', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
-                                </th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                            <tr *ngFor="let it of instructors | tableFilter: filterForm.value">
-                                <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.neptun }}</a></td>
-                                <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.name }}</a></td>
-                                <td><a mat-button [routerLink]="['/instructors', it.id]">{{ it.email }}</a></td>
-                                <td><a mat-button [routerLink]="['/instructors/update', it.id]"><span class="material-symbols-outlined">edit</span></a></td>
-                                <td><a (click)="onDeleteInstructor(it)"><span class="material-symbols-outlined">delete</span></a></td>
-                            </tr>
-                        </table>
-                    </form>
-                </mat-card-content>
-            </mat-card>
-        </div>
-    </div>
+    
 </div>

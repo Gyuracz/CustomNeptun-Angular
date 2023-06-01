@@ -1,22 +1,27 @@
-@font-color: rgb(77, 77, 77);
+@box-color: rgb(99, 99, 99);
+@background-color: rgb(141, 141, 141);
+
+.container-fluid{
+    background-color: @background-color;
+    color: white;
+    .material-symbols-outlined{
+        color: white;
+    }
+}
 
 h1{
     text-align: center;
-    color: @font-color;
-    margin-top: 30pt;
+    padding-top: 30pt;
 }
 
 .box{
     margin-top: 15pt;
-    background-color: rgba(77, 77, 77, 0.3);
+    padding: 15pt;
+    background-color: @box-color;
+    border-radius: 15pt;
+    margin-bottom: 100%;
     form{
         text-align: center;
-        color: @font-color;
-        input{
-            border-radius: 5pt;
-            border: @font-color 1pt solid;
-            padding: 3pt 5pt;
-        }
         .submitButton{
             border: none;
             border-radius: 5pt;

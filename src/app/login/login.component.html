@@ -1,25 +1,28 @@
-<h1>Login</h1>
+<div class="container-fluid">
+    <h1>Login</h1>
 
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="box">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Neptun code</mat-label>
-                        <input matInput type="text" placeholder="Neptun" formControlName="neptun" required="true">
-                        <mat-error *ngIf="neptun!.invalid">{{getNeptunErrorMessage()}}</mat-error>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field appearance="outline">
-                        <mat-label>Password</mat-label>
-                        <input matInput type="password" formControlName="password" required="true">
-                    </mat-form-field>
-                    <mat-error *ngIf="incorrect">Invalid Neptun code or password. Please try again!</mat-error>
-                    <br>
-                    <button class="submitButton" mat-raised-button color="primary" type [disabled]="loginForm.invalid">Login</button>
-                </form>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="box">
+                    <form [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Neptun code</mat-label>
+                            <input matInput type="text" placeholder="Neptun" formControlName="neptun" required="true">
+                            <mat-error *ngIf="neptun!.invalid">{{getNeptunErrorMessage()}}</mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" formControlName="password" required="true">
+                        </mat-form-field>
+                        <mat-error *ngIf="incorrect">Invalid Neptun code or password. Please try again!</mat-error>
+                        <br>
+                        <button class="submitButton" mat-raised-button color="primary" type [disabled]="loginForm.invalid">Login</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+    
 </div>
