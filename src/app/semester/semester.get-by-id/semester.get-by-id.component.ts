@@ -38,6 +38,7 @@ export class SemesterGetByIdComponent implements OnInit {
   }
 
   getSubjectOfSemesters(data: Semester){
+    data.subjectNames = [];
     this.subjectService.getSubjects().subscribe(subjects => {
       for(var subjectId of data.subjectIds){
         for(var it of subjects){
