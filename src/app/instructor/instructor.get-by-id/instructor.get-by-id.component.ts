@@ -21,19 +21,21 @@ export class InstructorGetByIdComponent implements OnInit {
   instructor: any = {};
   semesters: Array<Semester> = [];
   subjectOfSemesters: Map<Semester, Array<Subject>> = new Map<Semester, Array<Subject>>();
+  isAdmin = false;
 
-  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private instructorService: InstructorService, private subjectService: SubjectService, private semesterService: SemesterService, private authService: AuthService){}
+  constructor(private activatedRoute: ActivatedRoute, private userService: UserService, private subjectService: SubjectService, private semesterService: SemesterService, private authService: AuthService){}
 
   ngOnInit(): void {
+    this.authService.userInfo.subscribe((res: any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        this.isAdmin = true;
+      }
+    });
     this.getInstructorById();
   }
 
   getInstructorById(){
     let id = Number(this.activatedRoute.snapshot.paramMap.get("id"));
-    // this.instructorService.getInstructorById(id).subscribe(data => {
-    //   this.getSubjectsOfSemester(data);
-    //   this.instructor = data;
-    // });
     this.userService.getUserById(id).subscribe(data => {
       if(data.roles.includes(Roles.INSTRUCTOR)){
         this.getSubjectsOfSemester(data);
@@ -62,17 +64,14 @@ export class InstructorGetByIdComponent implements OnInit {
   }
 
   onDeleteSubjectFromInstructor(subject: Subject){
-    this.authService.userInfo.subscribe((res:any) => {
-      if(res.roles.includes(Roles.ADMIN)){
-        let idIdx = this.instructor.subjectIds.indexOf(subject.id, 0);
-        if(idIdx !== -1){
-          this.instructor.subjectIds.splice(idIdx, 1);
-          this.instructor.subjectNames = [];
-        }
-        // this.instructorService.updateInstructor(this.instructor).subscribe();    
-        this.userService.updateUser(this.instructor).subscribe();
-        this.getSubjectsOfSemester(this.instructor);
-      }
-    });
+    if(this.isAdmin == true){
+      let idIdx = this.instructor.subjectIds.indexOf(subject.id, 0);
+      if(idIdx !== -1){
+        this.instructor.subjectIds.splice(idIdx, 1);
+        this.instructor.subjectNames = [];
+      }   
+      this.userService.updateUser(this.instructor).subscribe();
+      this.getSubjectsOfSemester(this.instructor);
+    }
   }
 }

@@ -33,7 +33,7 @@
                     <table>
                         <tr *ngFor="let it of semester.subjectNames">
                             <td>{{ it }}</td>
-                            <td class="buttonCell"><a (click)="onDeleteSubjectFromSemester(it)"><span class="material-symbols-outlined">delete</span></a></td>
+                            <td class="buttonCell" *ngIf="isAdmin"><a (click)="onDeleteSubjectFromSemester(it)"><span class="material-symbols-outlined">delete</span></a></td>
                         </tr>
                     </table>
                 </div>

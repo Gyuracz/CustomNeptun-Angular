@@ -23,10 +23,16 @@ export class SemesterGetAllComponent {
     column: "",
     direction: ""
   };
+  isAdmin = false;
 
   constructor(private semesterService: SemesterService, private subjectService: SubjectService, private formBuilder: FormBuilder, private authService: AuthService){}
 
   ngOnInit(){
+    this.authService.userInfo.subscribe((res: any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        this.isAdmin = true;
+      }
+    });
     this.filterForm = this.formBuilder.group({
       "name": "",
       "start": "",
@@ -54,12 +60,10 @@ export class SemesterGetAllComponent {
   }
 
   onDeleteSemester(semester: Semester){
-    this.authService.userInfo.subscribe((res:any) => {
-      if(res.roles.includes(Roles.ADMIN)){
-        this.semesterService.deleteSemesterById(semester.id).subscribe();
-        this.getSemester();
-      }
-    });
+    if(this.isAdmin == true){
+      this.semesterService.deleteSemesterById(semester.id).subscribe();
+      this.getSemester();
+    }
   }
 
   changeSorting(column: string, direction: string){

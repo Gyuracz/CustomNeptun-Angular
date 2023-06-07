@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-11"></div>
             <div class="col-1">
-                <a mat-button [routerLink]="['/semesters/create']"><span class="material-symbols-outlined">add_circle</span></a>
+                <a mat-button [routerLink]="['/semesters/create']" *ngIf="isAdmin"><span class="material-symbols-outlined">add_circle</span></a>
             </div>
         </div>
         <div class="row">
@@ -36,15 +36,15 @@
                                         <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'end' && sort.direction == 'asc')" (click)="changeSorting('end', 'asc')"><span class="material-symbols-outlined">arrow_upward</span></a>
                                         <a *ngIf="(sort.direction == '' && sort.column == '') || (sort.column == 'end' && sort.direction == 'desc')" (click)="changeSorting('end', 'desc')"><span class="material-symbols-outlined">arrow_downward</span></a>
                                     </th>
-                                    <th>Edit</th>
-                                    <th>Delete</th>
+                                    <th *ngIf="isAdmin">Edit</th>
+                                    <th *ngIf="isAdmin">Delete</th>
                                 </tr>
                                 <tr *ngFor="let it of semesters | tableFilter: filterForm.value">
                                     <td><a mat-button [routerLink]="['/semesters', it.id]">{{ it.name }}</a></td>
                                     <td><a mat-button [routerLink]="['/semesters', it.id]">{{ it.start }}</a></td>
                                     <td><a mat-button [routerLink]="['/semesters', it.id]">{{ it.end }}</a></td>
-                                    <td><a mat-button [routerLink]="['/semesters/update', it.id]"><span class="material-symbols-outlined">edit</span></a></td>
-                                    <td><a (click)="onDeleteSemester(it)"><span class="material-symbols-outlined">delete</span></a></td>
+                                    <td *ngIf="isAdmin"><a mat-button [routerLink]="['/semesters/update', it.id]"><span class="material-symbols-outlined">edit</span></a></td>
+                                    <td *ngIf="isAdmin"><a (click)="onDeleteSemester(it)"><span class="material-symbols-outlined">delete</span></a></td>
                                 </tr>
                             </table>
                         </form>

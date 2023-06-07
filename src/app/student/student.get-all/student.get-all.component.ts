@@ -24,10 +24,16 @@ export class StudentGetAllComponent {
     column: "",
     direction: ""
   };
+  isAdmin = false;
 
-  constructor(private userService: UserService, private studentService: StudentService, private subjectService: SubjectService, private formBuilder: FormBuilder, private authService: AuthService){}
+  constructor(private userService: UserService, private subjectService: SubjectService, private formBuilder: FormBuilder, private authService: AuthService){}
 
   ngOnInit(): void {
+    this.authService.userInfo.subscribe((res: any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        this.isAdmin = true;
+      }
+    });
     this.filterForm = this.formBuilder.group({
       "neptun": "",
       "name": "",
@@ -41,18 +47,6 @@ export class StudentGetAllComponent {
     this.subjectService.getSubjects().subscribe(data => {
       this.subjects = data;
     });
-    // this.studentService.getStudents().subscribe(data => {
-    //   for(var student of data){
-    //     for(var subjectId of student.subjectIds){
-    //       for(var it of this.subjects){
-    //         if(subjectId === it.id){
-    //           student.subjectNames.push(it.name);
-    //         }
-    //       }
-    //     }
-    //   }
-    //   this.students = data;
-    // });
     this.userService.getUsers().subscribe(data => {
       for(var user of data){
         if(user.roles.includes(Roles.STUDENT)){
@@ -70,14 +64,11 @@ export class StudentGetAllComponent {
   }
 
   onDeleteStudent(student: User){
-    // this.studentService.deleteStudentById(student.id).subscribe();
-    this.authService.userInfo.subscribe((res:any) => {
-      if(res.roles.includes(Roles.ADMIN)){
-        this.userService.deleteUserById(student.id).subscribe();
-        this.students = [];
-        this.getStudents();
-      }
-    });
+    if(this.isAdmin){
+      this.userService.deleteUserById(student.id).subscribe();
+      this.students = [];
+      this.getStudents();
+    }
   }
 
   changeSorting(column: string, direction: string){

@@ -20,10 +20,16 @@ export class SubjectGetAllComponent {
     column: "",
     direction: ""
   };
+  isAdmin = false;
 
   constructor(private subjectService: SubjectService, private formBuilder: FormBuilder, private authService: AuthService){}
 
   ngOnInit(): void {
+    this.authService.userInfo.subscribe((res: any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        this.isAdmin = true;
+      }
+    });
       this.filterForm = this.formBuilder.group({
         "name": "",
         "code": "",
@@ -40,12 +46,10 @@ export class SubjectGetAllComponent {
   }
 
   onDeleteSubject(subject: Subject){
-    this.authService.userInfo.subscribe((res:any) => {
-      if(res.roles.includes(Roles.ADMIN)){
-        this.subjectService.deleteSubjectById(subject.id).subscribe();
-        this.getSubjects();
-      }
-    });
+    if(this.isAdmin){
+      this.subjectService.deleteSubjectById(subject.id).subscribe();
+      this.getSubjects();
+    }
   }
 
   changeSorting(column: string, direction: string){

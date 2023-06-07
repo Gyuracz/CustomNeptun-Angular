@@ -24,10 +24,16 @@ export class InstructorGetAllComponent {
     column: "",
     direction: ""
   };
+  isAdmin = false;
 
-  constructor(private userService: UserService, private instructorService: InstructorService, private subjectService: SubjectService, private formBuilder: FormBuilder, private authService: AuthService){}
+  constructor(private userService: UserService, private subjectService: SubjectService, private formBuilder: FormBuilder, private authService: AuthService){}
 
   ngOnInit(){
+    this.authService.userInfo.subscribe((res: any) => {
+      if(res.roles.includes(Roles.ADMIN)){
+        this.isAdmin = true;
+      }
+    });
     this.filterForm = this.formBuilder.group({
       "neptun": "",
       "name": "",
@@ -41,18 +47,6 @@ export class InstructorGetAllComponent {
     this.subjectService.getSubjects().subscribe(data => {
       this.subjects = data;
     });
-    // this.instructorService.getInstructors().subscribe(data => {
-    //   for(var instructor of data){
-    //     for(var subjectId of instructor.subjectIds){
-    //       for(var it of this.subjects){
-    //         if(subjectId === it.id){
-    //           instructor.subjectNames.push(it.name);
-    //         }
-    //       }
-    //     }
-    //   }
-    //   this.instructors = data;
-    // });
     this.userService.getUsers().subscribe(data => {
       for(var user of data){
         if(user.roles.includes(Roles.INSTRUCTOR)){
@@ -70,14 +64,11 @@ export class InstructorGetAllComponent {
   }
 
   onDeleteInstructor(instructor: User){
-    // this.instructorService.deleteInstructorById(instructor.id).subscribe();
-    this.authService.userInfo.subscribe((res:any) => {
-      if(res.roles.includes(Roles.ADMIN)){
-        this.userService.deleteUserById(instructor.id).subscribe();
-        this.instructors = [];
-        this.getInstructors();
-      }
-    });
+    if(this.isAdmin == true){
+      this.userService.deleteUserById(instructor.id).subscribe();
+      this.instructors = [];
+      this.getInstructors();
+    }
   }
 
   changeSorting(column: string, direction: string){
